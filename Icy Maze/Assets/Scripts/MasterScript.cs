@@ -10,6 +10,6 @@ public class MasterScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        print("hello");
+	
 	}
 }
