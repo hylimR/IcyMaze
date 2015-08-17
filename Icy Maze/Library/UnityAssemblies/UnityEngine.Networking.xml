@@ -74,6 +74,11 @@
         <para>Return true when a client connection has been set as ready.</para>
       </summary>
     </member>
+    <member name="P:UnityEngine.Networking.ClientScene.readyConnection">
+      <summary>
+        <para>The NetworkConnection object that is currently "ready". This is the connection being used connect to the server where objects are spawned from.</para>
+      </summary>
+    </member>
     <member name="P:UnityEngine.Networking.ClientScene.spawnableObjects">
       <summary>
         <para>This is dictionary of the disabled NetworkIdentity objects in the scene that could be spawned by messages from the server.</para>
