@@ -171,7 +171,49 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
+--- !u!1001 &1874701523
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -5.73688602
+      objectReference: {fileID: 0}
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.26107883
+      objectReference: {fileID: 0}
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -1.97850156
+      objectReference: {fileID: 0}
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 472018, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f23b2e63683cd5148a5d8a3d1336efc3, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2031811424
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,4 +273,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
