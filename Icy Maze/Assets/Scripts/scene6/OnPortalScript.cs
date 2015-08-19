@@ -6,6 +6,7 @@ public class OnPortalScript : MonoBehaviour {
 	private GameObject LeftTop;
 	private GameObject RightBottom;
 	private GameObject RightTop;
+	private GameObject Portal;
 	private TriggersheetScript LeftBottomScript;
 	private TriggersheetScript LeftTopScript;
 	private TriggersheetScript RightBottomScript;
@@ -19,6 +20,8 @@ public class OnPortalScript : MonoBehaviour {
 		LeftTop = GameObject.Find ("LeftTop");
 		RightBottom = GameObject.Find ("RightBottom");
 		RightTop = GameObject.Find ("RightTop");
+		Portal = GameObject.Find ("Portal");
+		Portal.SetActive(false);
 
 	
 	}
@@ -29,14 +32,12 @@ public class OnPortalScript : MonoBehaviour {
 		RightBottomScript=RightBottom.GetComponent<TriggersheetScript>();
 		LeftTopScript=LeftTop.GetComponent<TriggersheetScript>();
 		RightTopScript=RightTop.GetComponent<TriggersheetScript>();
-
+		if (LeftBottomScript.isOn && RightBottomScript.isOn && LeftTopScript.isOn && RightTopScript.isOn) {
+			Portal.SetActive(true);
+		}
 
 	
 	}
-	void OnGUI(){
-		if (LeftBottomScript.isOn && RightBottomScript.isOn && LeftTopScript.isOn && RightTopScript.isOn) {
-			GUI.TextArea(new Rect(Screen.width/2,Screen.height/2,100,100),"You win");
-		}
-	}
+
 
 }

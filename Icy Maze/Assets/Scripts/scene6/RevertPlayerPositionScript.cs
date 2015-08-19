@@ -12,8 +12,9 @@ public class RevertPlayerPositionScript : MonoBehaviour {
 	void Update () {
 	
 	}
-	void OnTriggerEnter(){
-		transform.position = new Vector3 (0f,0f,-11f);
-
+	void OnTriggerEnter(Collider other){
+		if (other.tag == "TrapBox") {
+			transform.position = new Vector3 (0f, 0f, -10f);
+		}
 	}
 }

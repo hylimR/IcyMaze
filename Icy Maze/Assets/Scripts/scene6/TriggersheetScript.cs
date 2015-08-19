@@ -16,7 +16,6 @@ public class TriggersheetScript : MonoBehaviour {
 		if (other.collider.tag=="ElementBox") {
 
 			isOn = true;
-			print("asd");
 
 		}
 	
