@@ -79,7 +79,7 @@ namespace CameraController
 
 		void mouseEvent()
 		{
-			float delta = Input.GetAxis("Mouse ScrollWheel");
+			/*float delta = Input.GetAxis("Mouse ScrollWheel");
 			if (delta != 0.0f)
 				this.mouseWheelEvent(delta);
 
@@ -89,7 +89,7 @@ namespace CameraController
 				this.oldPos = Input.mousePosition;
 
 			this.mouseDragEvent(Input.mousePosition);
-
+            */
 			return;
 		}
 

@@ -47,6 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\MasterScript.cs" />
+     <Compile Include="Assets\Scripts\Scene3\BoxMovingScript.cs" />
+     <Compile Include="Assets\Scripts\Scene3\BoxScript.cs" />
+     <Compile Include="Assets\Scripts\Scene3\SwitchScript.cs" />
+     <Compile Include="Assets\Scripts\Scene4\CenterScript.cs" />
+     <Compile Include="Assets\Scripts\Scene4\HitTubeScript.cs" />
      <Compile Include="Assets\Scripts\TestScripts.cs" />
      <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
      <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />
