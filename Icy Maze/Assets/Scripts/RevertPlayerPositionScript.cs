@@ -13,7 +13,7 @@ public class RevertPlayerPositionScript : MonoBehaviour {
 	
 	}
 	void OnTriggerEnter(){
-		transform.position = new Vector3 (0f,0f,-13f);
+		transform.position = new Vector3 (0f,0f,-11f);
 
 	}
 }

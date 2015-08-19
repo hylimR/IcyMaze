@@ -6,6 +6,9 @@ TagManager:
   tags:
   - MovableBox
   - HitTube
+  - wall
+  - ElementBox
+  - Playerchan
   layers:
   - Default
   - TransparentFX
