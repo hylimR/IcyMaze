@@ -1,9 +1,4 @@
-﻿//
-// Unityちゃん用の三人称カメラ
-// 
-// 2013/06/07 N.Kobyasahi
-//
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 
@@ -41,13 +36,13 @@ public class ThirdPersonCamera : MonoBehaviour
 		if(Input.GetButton("Fire1"))	// left Ctlr
 		{	
 			// Change Front Camera
-			setCameraPositionFrontView();
+			setCameraPositionNormalView();
 		}
 		
 		else if(Input.GetButton("Fire2"))	//Alt
 		{	
 			// Change Jump Camera
-			setCameraPositionJumpView();
+			setCameraPositionNormalView();
 		}
 		
 		else
