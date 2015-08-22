@@ -14,7 +14,10 @@ public class TrapBoxScript : MonoBehaviour {
 		transform.Translate (x*Time.deltaTime, 0f, 0f);	
 		
 	}
-	void OnTriggerEnter(){
-		x = x * -1;
+	void OnTriggerEnter(Collider other){
+
+
+			x = x * -1;
+
 	}
 }

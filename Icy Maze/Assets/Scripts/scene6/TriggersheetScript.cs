@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TriggersheetScript : MonoBehaviour {
-	bool isOn;
+	public bool isOn;
 	// Use this for initialization
 	void Start () {
 		isOn = false;
@@ -13,7 +13,8 @@ public class TriggersheetScript : MonoBehaviour {
 	
 	}
 	void OnCollisionEnter(Collision other){
-		if (other.collider.CompareTag ("ElementBox")) {
+		if (other.collider.tag=="ElementBox") {
+
 			isOn = true;
 
 		}
