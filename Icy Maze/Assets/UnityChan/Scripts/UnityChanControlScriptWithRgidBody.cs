@@ -48,6 +48,7 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
     static int locoState = Animator.StringToHash("Base Layer.Locomotion");
     static int jumpState = Animator.StringToHash("Base Layer.Jump");
     static int restState = Animator.StringToHash("Base Layer.Rest");
+    static int kickState = Animator.StringToHash("Base Layer.Kick");
 
     // 初期化
     void Start()
@@ -106,7 +107,6 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
                 }
             }
         }
-
 
         // 上下のキー入力でキャラクターを移動させる
         transform.localPosition += velocity * Time.fixedDeltaTime;

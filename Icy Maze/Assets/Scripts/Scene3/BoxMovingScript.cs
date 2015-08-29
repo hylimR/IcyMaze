@@ -4,9 +4,10 @@ using System.Collections;
 public class BoxMovingScript : MonoBehaviour
 {
     private GameObject touchedBox;
+    private UnityChanControlScriptWithRgidBody playerScript;
     void Start()
     {
-
+        playerScript = GetComponent<UnityChanControlScriptWithRgidBody>();
     }
 
     void Update()
@@ -22,10 +23,14 @@ public class BoxMovingScript : MonoBehaviour
             if (Input.GetKey(KeyCode.F))
             {
                 touchedBox.transform.parent = transform;
+                touchedBox.GetComponent<Rigidbody>().isKinematic = false;
+                playerScript.rotateSpeed = 0f;
             }
             else
             {
+                touchedBox.GetComponent<Rigidbody>().isKinematic = true;
                 touchedBox.transform.parent = null;
+                playerScript.rotateSpeed = 1.0f;
             }
         }
     }
@@ -33,7 +38,11 @@ public class BoxMovingScript : MonoBehaviour
 
     void OnCollisionExit(Collision collisionInfo)
     {
-        touchedBox.transform.parent = null;
+        if (touchedBox.tag == "MovableBox")
+        {
+            touchedBox.transform.parent = null;
+            touchedBox.GetComponent<Rigidbody>().isKinematic = true;
+            playerScript.rotateSpeed = 1.0f;
+        }
     }
-
 }

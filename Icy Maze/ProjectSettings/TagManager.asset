@@ -6,9 +6,13 @@ TagManager:
   tags:
   - MovableBox
   - HitTube
-  - wall
+  - TubeCollider
   - ElementBox
+  - TrapBox
   - Playerchan
+  - wall
+  - ImmoveableBox
+  - Switches
   layers:
   - Default
   - TransparentFX

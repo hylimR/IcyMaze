@@ -69,17 +69,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MasterScript.cs" />
-    <Compile Include="Assets\Scripts\RevertPlayerPositionScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BoxMovingScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BoxScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\SwitchScript.cs" />
-    <Compile Include="Assets\Scripts\Scene4\CenterScript.cs" />
-    <Compile Include="Assets\Scripts\Scene4\HitTubeScript.cs" />
-    <Compile Include="Assets\Scripts\Scene4\TubeColliderScript.cs" />
-    <Compile Include="Assets\Scripts\TakeElementScript.cs" />
+    <Compile Include="Assets\Scripts\Scene4\CMasterScript.cs" />
+    <Compile Include="Assets\Scripts\Scene4\HitTubeScriptV2.cs" />
+    <Compile Include="Assets\Scripts\Scene4\MagicCircleScript.cs" />
     <Compile Include="Assets\Scripts\TestScripts.cs" />
-    <Compile Include="Assets\Scripts\TrapBoxScript.cs" />
-    <Compile Include="Assets\Scripts\TriggersheetScript.cs" />
+    <Compile Include="Assets\Scripts\scene6\OnPortalScript.cs" />
+    <Compile Include="Assets\Scripts\scene6\PortalScript.cs" />
+    <Compile Include="Assets\Scripts\scene6\RevertPlayerPositionScript.cs" />
+    <Compile Include="Assets\Scripts\scene6\TakeElementScript.cs" />
+    <Compile Include="Assets\Scripts\scene6\TrapBoxScript.cs" />
+    <Compile Include="Assets\Scripts\scene6\TriggersheetScript.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IdleChanger.cs" />
