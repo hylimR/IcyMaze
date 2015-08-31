@@ -21,7 +21,7 @@ public class HitTubeScriptV2 : MonoBehaviour
     {
         if (!isMoving())
         {
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 if (!isReverse)
                     destination = new Vector3(transform.localPosition.x - 1f, transform.localPosition.y, transform.localPosition.z);
@@ -29,7 +29,7 @@ public class HitTubeScriptV2 : MonoBehaviour
                     destination = new Vector3(transform.localPosition.x + 1f, transform.localPosition.y, transform.localPosition.z);
             }
 
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 if (!isReverse)
                     destination = new Vector3(transform.localPosition.x + 1f, transform.localPosition.y, transform.localPosition.z);
@@ -37,7 +37,7 @@ public class HitTubeScriptV2 : MonoBehaviour
                     destination = new Vector3(transform.localPosition.x - 1f, transform.localPosition.y, transform.localPosition.z);
             }
 
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 if(!isReverse)
                     destination = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + 1f);
@@ -45,7 +45,7 @@ public class HitTubeScriptV2 : MonoBehaviour
                     destination = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 1f);
             }
 
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 if(!isReverse)
                     destination = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 1f);
