@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\MasterScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BoxMovingScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BoxScript.cs" />
+    <Compile Include="Assets\Scripts\Scene3\CharacterScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\SwitchScript.cs" />
     <Compile Include="Assets\Scripts\Scene4\CMasterScript.cs" />
     <Compile Include="Assets\Scripts\Scene4\HitTubeScriptV2.cs" />

@@ -3,35 +3,40 @@ using System.Collections;
 
 public class SwitchScript : MonoBehaviour
 {
+    const string playerName = "unitychan";
+    public GameObject connectedBlock;
+    private bool isActivated = false;
 
-    public GameObject connectedTube;
-    private LensFlare lenFlare;
-    // Use this for initialization
     void Start()
     {
-        lenFlare = connectedTube.GetComponentInChildren<LensFlare>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        print(collision.collider.gameObject.name);
-        if (collision.collider.tag == "MovableBox")
+        if (isActivated)
         {
-            lenFlare.brightness = 1.0f;
+            connectedBlock.SetActive(false);
+        }
+        else
+        {
+            connectedBlock.SetActive(true);
         }
     }
 
-    void OnCollisionExit(Collision collision)
+    void OnTriggerStay(Collider collider)
     {
-        if (collision.collider.tag == "MovableBox")
+        if(collider.gameObject.name == playerName)
         {
-            lenFlare.brightness = 0.1f;
+            print(playerName);
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                if (!isActivated)
+                    isActivated = true;
+                else
+                    isActivated = false;
+            }
         }
     }
 }
