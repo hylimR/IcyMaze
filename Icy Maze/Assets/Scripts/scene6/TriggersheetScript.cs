@@ -13,11 +13,13 @@ public class TriggersheetScript : MonoBehaviour {
 	
 	}
 	void OnCollisionEnter(Collision other){
-		if (other.collider.tag=="ElementBox") {
+		if (other.collider.tag=="Playerchan") {
 
 			isOn = true;
 
 		}
+
 	
 }
+
 }

@@ -13,6 +13,7 @@ TagManager:
   - wall
   - ImmoveableBox
   - Switches
+  - thunder
   layers:
   - Default
   - TransparentFX
