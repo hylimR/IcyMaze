@@ -2,42 +2,43 @@
 using System.Collections;
 
 public class OnPortalScript : MonoBehaviour {
-	private GameObject LeftBottom;
-	private GameObject LeftTop;
-	private GameObject RightBottom;
-	private GameObject RightTop;
-	private GameObject Portal;
-	private TriggersheetScript LeftBottomScript;
-	private TriggersheetScript LeftTopScript;
-	private TriggersheetScript RightBottomScript;
-	private TriggersheetScript RightTopScript;
+	public GameObject LeftBottom;
+	public GameObject LeftTop;
+	public  GameObject RightBottom;
+	public  GameObject RightTop;
+
+
+
+
+	TriggersheetScript l1,l2,r1,r2;
 
 
 
 	// Use this for initialization
 	void Start () {
-		LeftBottom = GameObject.Find ("LeftBottom");
-		LeftTop = GameObject.Find ("LeftTop");
-		RightBottom = GameObject.Find ("RightBottom");
-		RightTop = GameObject.Find ("RightTop");
-		Portal = GameObject.Find ("Portal");
-		Portal.SetActive(false);
+		l1= LeftBottom.GetComponent<TriggersheetScript>();
+		l2= LeftTop.GetComponent<TriggersheetScript>();
+		r1= RightBottom.GetComponent<TriggersheetScript>();
+		r2= RightTop.GetComponent<TriggersheetScript>();
+	
+		
+
+
+
 
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		LeftBottomScript=LeftBottom.GetComponent<TriggersheetScript>();
-		RightBottomScript=RightBottom.GetComponent<TriggersheetScript>();
-		LeftTopScript=LeftTop.GetComponent<TriggersheetScript>();
-		RightTopScript=RightTop.GetComponent<TriggersheetScript>();
-		if (LeftBottomScript.isOn && RightBottomScript.isOn && LeftTopScript.isOn && RightTopScript.isOn) {
-			Portal.SetActive(true);
+		if (isCompleted ()) {
+			print ("win");
 		}
 
-	
-	}
-
-
-}
+		}
+	private bool isCompleted(){
+		if (l1.isOn&&r2.isOn&&l2.isOn&&r1.isOn)
+		{return true;}
+		else 
+		{return false;}
+	}}
