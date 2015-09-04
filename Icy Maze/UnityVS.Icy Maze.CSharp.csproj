@@ -68,7 +68,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\MainCameraScript.cs" />
     <Compile Include="Assets\Scripts\MasterScript.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovementScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BoxMovingScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BoxScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\CharacterScript.cs" />
@@ -76,7 +78,6 @@
     <Compile Include="Assets\Scripts\Scene4\CMasterScript.cs" />
     <Compile Include="Assets\Scripts\Scene4\HitTubeScriptV2.cs" />
     <Compile Include="Assets\Scripts\Scene4\MagicCircleScript.cs" />
-    <Compile Include="Assets\Scripts\TestScripts.cs" />
     <Compile Include="Assets\Scripts\scene6\OnPortalScript.cs" />
     <Compile Include="Assets\Scripts\scene6\PortalScript.cs" />
     <Compile Include="Assets\Scripts\scene6\RevertPlayerPositionScript.cs" />
