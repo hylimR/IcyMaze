@@ -10,19 +10,23 @@ public class PlayerMovementScript : MonoBehaviour
     public float moveSpeed;
     public float animSpeed = 3.5f;
     private Animator anim;
-    private float[] faceDirection = {270f, 90f, 180f, 0f };  //front back left right
+    private float[] faceDirection = { 270f, 90f, 180f, 0f };  //front back left right
     private float h, v;
+    public bool canMove;
+    private Vector3 curPosition, lasPosition;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         anim.speed = animSpeed;
+        canMove = true;
     }
 
     void Update()
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
+
         if (Input.GetKeyUp(KeyCode.A))
         {
             anim.SetFloat("Speed", 0);
@@ -43,29 +47,30 @@ public class PlayerMovementScript : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (canMove)
         {
-            transform.localEulerAngles = new Vector3(0f, faceDirection[2], 0f); 
-            Move(-h);
-        }
-       if (Input.GetKey(KeyCode.D))
-        {
-            transform.localEulerAngles = new Vector3(0f, faceDirection[3], 0f);
-            Move(h);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.localEulerAngles = new Vector3(0f, faceDirection[0], 0f);
-            Move(v);
-        }
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.localEulerAngles = new Vector3(0f, faceDirection[2], 0f);
+                Move(-h);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.localEulerAngles = new Vector3(0f, faceDirection[3], 0f);
+                Move(h);
+            }
+            if (Input.GetKey(KeyCode.W))
+            {
+                transform.localEulerAngles = new Vector3(0f, faceDirection[0], 0f);
+                Move(v);
+            }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.localEulerAngles = new Vector3(0f, faceDirection[1], 0f);
-            Move(-v);
+            if (Input.GetKey(KeyCode.S))
+            {
+                transform.localEulerAngles = new Vector3(0f, faceDirection[1], 0f);
+                Move(-v);
+            }
         }
-
-        
     }
 
     void Move(float val)
@@ -73,4 +78,16 @@ public class PlayerMovementScript : MonoBehaviour
         anim.SetFloat("Speed", Mathf.Abs(val));
         transform.Translate(new Vector3(0f, 0f, val * Time.deltaTime * moveSpeed));
     }
+
+    public bool isMoving()
+    {
+        curPosition = transform.localPosition;
+        if (curPosition == lasPosition)
+        {
+            return false;
+        }
+        lasPosition = curPosition;
+        return true;
+    }
+
 }
