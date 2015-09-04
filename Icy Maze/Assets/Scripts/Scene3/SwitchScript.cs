@@ -9,7 +9,7 @@ public class SwitchScript : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -29,7 +29,6 @@ public class SwitchScript : MonoBehaviour
     {
         if(collider.gameObject.name == playerName)
         {
-            print(playerName);
             if (Input.GetKeyDown(KeyCode.K))
             {
                 if (!isActivated)

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CMasterScript : MonoBehaviour {
 
+    private string sceneName = "Scene_four";
     public GameObject winScreen;
     public GameObject instruction;
     public GameObject startButton, showInstructButton;
@@ -64,7 +65,8 @@ public class CMasterScript : MonoBehaviour {
 
     private void FinishGame()
     {
+        Destroy(GameObject.Find(sceneName));
+        MasterScript.isFirstSceneCompleted = true;
         winScreen.SetActive(true);
-        Time.timeScale = 0;
     }
 }

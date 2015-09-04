@@ -9,8 +9,12 @@ public class CharacterScript : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
-	
+	    
 	}
+
+    void OnMouseDown()
+    {
+        GetComponent<Rigidbody>().AddForce(new Vector3(60f, 0f, 60f), ForceMode.Impulse);
+    }
 }
