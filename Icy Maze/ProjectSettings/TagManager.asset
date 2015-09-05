@@ -12,6 +12,9 @@ TagManager:
   - ImmoveableBox
   - Switches
   - thunder
+  - TrapBox
+  - ElementBox
+  - fire
   layers:
   - Default
   - TransparentFX
