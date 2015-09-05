@@ -4,10 +4,12 @@ using System.Collections;
 public class RayEmitterScript : MonoBehaviour {
 
     LineRenderer lineRenderer;
+    float rayDistance;
 	// Use this for initialization
 	void Start () {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
+        rayDistance = 24f;
 	}
 	
 	// Update is called once per frame
@@ -19,7 +21,7 @@ public class RayEmitterScript : MonoBehaviour {
     {
         Ray ray = new Ray(transform.position, Vector3.forward);
         RaycastHit hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit, 24f))
+        if (Physics.Raycast(ray, out hit, rayDistance))
         {
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position);

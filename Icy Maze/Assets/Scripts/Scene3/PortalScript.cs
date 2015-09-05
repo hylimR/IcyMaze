@@ -4,19 +4,11 @@ using System.Collections;
 public class PortalScript : MonoBehaviour {
 
     public string Scene;
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
+    
+    //load scene if the scene haven't be solved yet
     void OnTriggerEnter(Collider col)
     {
-        if (col.name == "unitychan")
+        if (col.name == MasterScript.playerName)
         {
             if (!MasterScript.isFirstSceneCompleted)
             {

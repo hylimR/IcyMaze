@@ -8,8 +8,7 @@ public class AlterableBoxScript : MonoBehaviour {
     private float speed;
     private bool shouldMove;
 
-    private Vector3 go;
-    private Vector3 back;
+    private Vector3 go, back;
 
 	void Start () {
         speed = 1.5f;
@@ -22,7 +21,7 @@ public class AlterableBoxScript : MonoBehaviour {
 	void FixedUpdate () {
         transform.localPosition = Vector3.MoveTowards(back, go, speed * Time.fixedDeltaTime);
 	}
-
+    //Move the object to positions using toggled by other game object
     public void Move()
     {
         if (shouldMove)

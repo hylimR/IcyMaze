@@ -4,18 +4,11 @@ using System.Collections;
 public class RaySwitchScript : MonoBehaviour {
 
     public GameObject rayEmitter;
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
 
+    //Activate the ray emitter
     void OnTriggerStay(Collider col)
     {
-        if(col.gameObject.name == "unitychan")
+        if(col.gameObject.name == MasterScript.playerName)
         {
             if (Input.GetKeyDown(KeyCode.K))
             {

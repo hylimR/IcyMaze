@@ -5,7 +5,6 @@ public class HitTubeScriptV2 : MonoBehaviour
 {
     public float moveSpeed;
     public bool isReverse = false;
-
     private Vector3 lasPosition, curPosition;
     private Vector3 destination;
     Behaviour halo;
@@ -19,6 +18,7 @@ public class HitTubeScriptV2 : MonoBehaviour
 
     void Update()
     {
+        //if block is currently moving don't accept input, else move the object by set the destination approriately
         if (!isMoving())
         {
             if (Input.GetKeyDown(KeyCode.A))
@@ -57,9 +57,11 @@ public class HitTubeScriptV2 : MonoBehaviour
 
     void FixedUpdate()
     {
+        //use fixed update to slowly update object position
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, destination, moveSpeed * Time.deltaTime);
     }
 
+    //Toggle box to either move in reverse direction/vice versa
     public void ReverseMovement()
     {
         if (isReverse)
@@ -73,7 +75,7 @@ public class HitTubeScriptV2 : MonoBehaviour
             halo.enabled = true;
         }
     }
-
+    //Check box is currently moving
     public bool isMoving()
     {
         curPosition = transform.localPosition;
@@ -84,12 +86,7 @@ public class HitTubeScriptV2 : MonoBehaviour
         lasPosition = curPosition;
         return true;
     }
-
-    public static bool V3Equal(Vector3 a, Vector3 b)
-    {
-        return Vector3.SqrMagnitude(a - b) < 0.1f;
-    }
-
+    //Reverse the direction on mouse click
     void OnMouseDown()
     {
         ReverseMovement();

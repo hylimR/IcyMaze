@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+//Master script to control current scene
 public class CMasterScript : MonoBehaviour {
 
-    private string sceneName = "Scene_four";
     public GameObject winScreen;
     public GameObject instruction;
     public GameObject startButton, showInstructButton;
     public GameObject mCircle1, mCircle2, mCircle3, mCircle4;
     MagicCircleScript s1, s2, s3, s4;
+
 	void Start () {
         //Pause the game at start screen
         Time.timeScale = 0;
@@ -37,6 +38,7 @@ public class CMasterScript : MonoBehaviour {
 
     private bool IsPuzzleComplete()
     {
+        //If all the four circle is stepped on , end the game
         if (s1.isSteppedOn && s2.isSteppedOn && s3.isSteppedOn && s4.isSteppedOn)
         {
             return true;
@@ -47,6 +49,7 @@ public class CMasterScript : MonoBehaviour {
         }
     }
 
+    //Toggle instruction
     private void ShowInstruction()
     {
         if (instruction.activeSelf)
@@ -63,9 +66,10 @@ public class CMasterScript : MonoBehaviour {
         }
     }
 
+    //End the game
     private void FinishGame()
     {
-        Destroy(GameObject.Find(sceneName));
+        Destroy(GameObject.Find(MasterScript.firstScene));
         MasterScript.isFirstSceneCompleted = true;
         winScreen.SetActive(true);
     }

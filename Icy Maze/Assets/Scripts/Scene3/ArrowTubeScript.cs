@@ -7,18 +7,16 @@ public class ArrowTubeScript : MonoBehaviour
     public Vector3 currentFacingDirection;
     LineRenderer lineRenderer;
     private float rayCastDistance;
+    private string arrowTube;
+    private string rayReceiver;
     // Use this for initialization
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         rayCastDistance = 40f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        rayReceiver = "RayReceiver";
+        arrowTube = "ArrowTube";
     }
 
     void OnCollisionStay(Collision col)
@@ -43,7 +41,7 @@ public class ArrowTubeScript : MonoBehaviour
             {
                 lineRenderer.enabled = true;
                 lineRenderer.SetPosition(0, transform.position);
-                if (hit.collider.gameObject.tag == "ArrowTube")
+                if (hit.collider.gameObject.tag == arrowTube)
                 {
                     lineRenderer.SetPosition(1, hit.collider.gameObject.transform.position);
                     hit.collider.gameObject.GetComponent<ArrowTubeScript>().ChangeRayDirection();
@@ -51,6 +49,11 @@ public class ArrowTubeScript : MonoBehaviour
                 else
                 {
                     lineRenderer.SetPosition(1, hit.point);
+                }
+
+                if(hit.collider.gameObject.name == rayReceiver)
+                {
+                    hit.collider.gameObject.GetComponent<RayReceiverScript>().DoSomething();
                 }
             }
             Invoke("DisableRayRenderer", 3f);
