@@ -3,14 +3,8 @@ using System.Collections;
 
 public class SwitchScript : MonoBehaviour
 {
-    const string playerName = "unitychan";
     public GameObject connectedBlock;
     private bool isActivated = false;
-
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -25,9 +19,10 @@ public class SwitchScript : MonoBehaviour
         }
     }
 
+    //Toggle to open/close the blockage
     void OnTriggerStay(Collider collider)
     {
-        if(collider.gameObject.name == playerName)
+        if(collider.gameObject.name == MasterScript.playerName)
         {
             if (Input.GetKeyDown(KeyCode.K))
             {

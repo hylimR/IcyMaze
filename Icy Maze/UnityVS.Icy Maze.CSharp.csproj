@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -81,7 +83,6 @@
     <Compile Include="Assets\Scripts\Scene3\AlterableBoxScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\ArrowTubeScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BlockerScript.cs" />
-    <Compile Include="Assets\Scripts\Scene3\CharacterScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\MagnetScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\PortalScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\RayEmitterScript.cs" />

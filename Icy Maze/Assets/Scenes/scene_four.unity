@@ -2431,7 +2431,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1001008677}
   m_Layer: 0
-  m_Name: Scene_four
+  m_Name: scene_four
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

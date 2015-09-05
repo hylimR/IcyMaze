@@ -2,21 +2,12 @@
 using System.Collections;
 
 public class AlterPositionScript : MonoBehaviour {
-
-    const string playerName = "unitychan";
     public GameObject block1, block2, block3, block4;
 
-    void Start () {
-	
-	}
-	
-	void Update () {
-	
-	}
-
+    //toggle the position of the four block
     void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.name == playerName)
+        if (col.gameObject.name == MasterScript.playerName)
         {
             if (Input.GetKeyDown(KeyCode.K))
             {

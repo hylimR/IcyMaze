@@ -3,15 +3,8 @@ using System.Collections;
 
 public class MagicCircleScript : MonoBehaviour {
 
+    //Check whether this particular magic circle is stepped on by box
     public bool isSteppedOn = false;
-
-	void Start () {
-	    
-	}
-	
-	void Update () {
-	    
-	}
 
     void OnTriggerEnter(Collider collider)
     {

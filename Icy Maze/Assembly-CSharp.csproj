@@ -53,7 +53,6 @@
      <Compile Include="Assets\Scripts\Scene3\AlterableBoxScript.cs" />
      <Compile Include="Assets\Scripts\Scene3\ArrowTubeScript.cs" />
      <Compile Include="Assets\Scripts\Scene3\BlockerScript.cs" />
-     <Compile Include="Assets\Scripts\Scene3\CharacterScript.cs" />
      <Compile Include="Assets\Scripts\Scene3\MagnetScript.cs" />
      <Compile Include="Assets\Scripts\Scene3\PortalScript.cs" />
      <Compile Include="Assets\Scripts\Scene3\RayEmitterScript.cs" />

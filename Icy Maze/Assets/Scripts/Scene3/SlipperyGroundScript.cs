@@ -3,19 +3,10 @@ using System.Collections;
 
 public class SlipperyGroundScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
+    //When player in on current ground, force will be added to it whenever it try to make a movement
     void OnTriggerStay(Collider col)
     {
-        if (col.name == "unitychan")
+        if (col.name == MasterScript.playerName)
         {
             col.GetComponent<PlayerMovementScript>().canMove = false;
             col.GetComponent<Rigidbody>().AddForce(col.transform.forward * 50, ForceMode.Acceleration);

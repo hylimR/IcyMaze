@@ -5,6 +5,7 @@ public class BlockerScript : MonoBehaviour {
 
     public Vector3 pos1, pos2, pos3, pos4;
     public float rate;
+    //linearly repeat moving between the four position set
 	IEnumerator Start () {
         Physics.IgnoreLayerCollision(8, 8, true);
         while (true)
@@ -15,7 +16,6 @@ public class BlockerScript : MonoBehaviour {
             yield return StartCoroutine(Move(pos4));
         }
 	}
-	
 	// Update is called once per frame
 	void Update () {
         transform.Rotate(Vector3.forward, Time.deltaTime * 180, Space.Self);
@@ -32,9 +32,10 @@ public class BlockerScript : MonoBehaviour {
         }
     }
 
+    //Apply a strong impulsive force to player whenever collided
     void OnCollisionStay(Collision col)
     {
-        if(gameObject.name == "unitychan")
+        if(gameObject.name == MasterScript.playerName)
             col.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-30,30), 0f, Random.Range(-30,30)), ForceMode.Impulse);
     }
 }
