@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PortalScript : MonoBehaviour {
 
+    public string Scene;
 	// Use this for initialization
 	void Start () {
 	
@@ -13,11 +14,14 @@ public class PortalScript : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider col)
     {
-        if (!MasterScript.isFirstSceneCompleted)
+        if (col.name == "unitychan")
         {
-            Application.LoadLevelAdditive(MasterScript.firstScene);
+            if (!MasterScript.isFirstSceneCompleted)
+            {
+                Application.LoadLevelAdditive(Scene);
+            }
         }
     }
 }

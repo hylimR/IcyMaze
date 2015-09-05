@@ -73,9 +73,14 @@
     <Compile Include="Assets\Scripts\PlayerMovementScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\AlterPositionScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\AlterableBoxScript.cs" />
+    <Compile Include="Assets\Scripts\Scene3\ArrowTubeScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BlockerScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\CharacterScript.cs" />
+    <Compile Include="Assets\Scripts\Scene3\MagnetScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\PortalScript.cs" />
+    <Compile Include="Assets\Scripts\Scene3\RayEmitterScript.cs" />
+    <Compile Include="Assets\Scripts\Scene3\RayReceiverScript.cs" />
+    <Compile Include="Assets\Scripts\Scene3\RaySwitchScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\SlipperyGroundScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\SwitchScript.cs" />
     <Compile Include="Assets\Scripts\Scene4\CMasterScript.cs" />

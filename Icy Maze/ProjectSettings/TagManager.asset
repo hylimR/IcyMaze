@@ -6,9 +6,7 @@ TagManager:
   tags:
   - MovableBox
   - HitTube
-  - TubeCollider
-  - ElementBox
-  - TrapBox
+  - ArrowTube
   - Playerchan
   - wall
   - ImmoveableBox
@@ -23,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Blocker
   - 
   - 
   - 

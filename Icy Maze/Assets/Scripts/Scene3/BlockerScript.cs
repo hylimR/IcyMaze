@@ -4,7 +4,9 @@ using System.Collections;
 public class BlockerScript : MonoBehaviour {
 
     public Vector3 pos1, pos2, pos3, pos4;
+    public float rate;
 	IEnumerator Start () {
+        Physics.IgnoreLayerCollision(8, 8, true);
         while (true)
         {
             yield return StartCoroutine(Move(pos1));
@@ -25,14 +27,14 @@ public class BlockerScript : MonoBehaviour {
         while(i < 1.0f)
         {
             i += Time.fixedDeltaTime;
-            transform.localPosition = Vector3.Slerp(transform.localPosition, des, i * 4);
+            transform.localPosition = Vector3.Slerp(transform.localPosition, des, i * rate);
             yield return null;
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionStay(Collision col)
     {
         if(gameObject.name == "unitychan")
-            col.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-50,50), 0f, Random.Range(-50,-50)), ForceMode.Impulse);
+            col.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-30,30), 0f, Random.Range(-30,30)), ForceMode.Impulse);
     }
 }
