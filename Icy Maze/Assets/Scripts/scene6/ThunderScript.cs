@@ -12,7 +12,7 @@ public class ThunderScript : MonoBehaviour {
 	}
 
 	void DisplayThunder(){
-		for (float i=0; i<5; i++) {
+		for (float i=0; i<2; i++) {
 			Instantiate (thunder, new Vector3 (parent.x + Random.Range(-11f,-7.5f), parent.y + 6f, parent.z + i - 12f),Quaternion.identity);
 		
 			Instantiate (thunder, new Vector3 (parent.x  + Random.Range(11f,7.5f), parent.y + 6f, parent.z + i - 12f),Quaternion.identity);
