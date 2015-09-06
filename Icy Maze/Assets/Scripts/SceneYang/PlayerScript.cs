@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 	public GameObject fireBall;
+	public GameObject waterGun;
+	public int bulletNo=3;
 	// Use this for initialization
 	void Start () {
 
@@ -10,7 +12,12 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKeyUp (KeyCode.J)) {
+			if(bulletNo>0){
+				waterGun = (GameObject)Instantiate (waterGun, new Vector3 (transform.position.x - 2f , transform.position.y, transform.position.z), Quaternion.identity);
+				bulletNo--;
+			}
+		}
 	}
 
 	void OnCollisionEnter(Collision other){
