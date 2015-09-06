@@ -11,6 +11,7 @@ public class PortalScript : MonoBehaviour {
         {
             if (!MasterScript.IsSceneComplete(scene))
             {
+                col.gameObject.GetComponent<PlayerMovementScript>().canMove = false;
                 Application.LoadLevelAdditive(scene);
             }
         }

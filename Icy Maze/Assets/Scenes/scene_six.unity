@@ -976,6 +976,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 100338, guid: 40046bae76ac54bffb59f14f47d9ba1b, type: 2}
+      propertyPath: m_Name
+      value: subunitychan
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11445990, guid: 40046bae76ac54bffb59f14f47d9ba1b, type: 2}
     - {fileID: 11400000, guid: 40046bae76ac54bffb59f14f47d9ba1b, type: 2}
@@ -1124,6 +1128,7 @@ MonoBehaviour:
   RightBottom: {fileID: 2004242870}
   RightTop: {fileID: 1745059990}
   level: 0
+  oriPlayer: {fileID: 0}
 --- !u!4 &1580480712
 Transform:
   m_ObjectHideFlags: 0
