@@ -16,7 +16,7 @@ public class RevertPlayerPositionScript : MonoBehaviour {
 		if (other.tag == "TrapBox") {
 			transform.position = new Vector3 (0f, 0f, -10f);
 			PlayerDie++;
-			print (PlayerDie);
+
 		}
 
 	}
@@ -26,5 +26,12 @@ public class RevertPlayerPositionScript : MonoBehaviour {
 			PlayerDie++;
 			print (PlayerDie);
 		}
+	}
+	void OnGUI(){
+		GUI.Box(new Rect(0, 10, 250, 150), "Infomation");
+		GUI.Label(new Rect(0, 30, 250, 30), "Winning Condition");
+		GUI.Label(new Rect(0, 50, 250, 30), "Light up all the trigger sheet");
+		GUI.Label(new Rect(0, 70, 250, 30), "Player Died :"+PlayerDie);
+
 	}
 }
