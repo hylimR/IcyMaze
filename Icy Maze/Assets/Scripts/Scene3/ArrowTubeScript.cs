@@ -53,7 +53,7 @@ public class ArrowTubeScript : MonoBehaviour
 
                 if(hit.collider.gameObject.name == rayReceiver)
                 {
-                    hit.collider.gameObject.GetComponent<RayReceiverScript>().DoSomething();
+                    hit.collider.gameObject.GetComponent<RayReceiverScript>().OpenGate();
                 }
             }
             Invoke("DisableRayRenderer", 3f);

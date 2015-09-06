@@ -22,6 +22,7 @@ public class SlipperyGroundScript : MonoBehaviour {
         if(col.name == "unitychan")
         {
             col.GetComponent<PlayerMovementScript>().canMove = true;
+            col.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
 }
