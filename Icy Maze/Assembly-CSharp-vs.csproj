@@ -64,6 +64,10 @@
      <Compile Include="Assets\Scripts\Scene4\CMasterScript.cs" />
      <Compile Include="Assets\Scripts\Scene4\HitTubeScriptV2.cs" />
      <Compile Include="Assets\Scripts\Scene4\MagicCircleScript.cs" />
+     <Compile Include="Assets\Scripts\SceneYang\FireBallScript.cs" />
+     <Compile Include="Assets\Scripts\SceneYang\FireBoxScript.cs" />
+     <Compile Include="Assets\Scripts\SceneYang\GameObjectScript.cs" />
+     <Compile Include="Assets\Scripts\SceneYang\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\scene6\OnPortalScript.cs" />
      <Compile Include="Assets\Scripts\scene6\RevertPlayerPositionScript.cs" />
      <Compile Include="Assets\Scripts\scene6\ThunderScript.cs" />
