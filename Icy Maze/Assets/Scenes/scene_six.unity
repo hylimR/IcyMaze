@@ -150,6 +150,7 @@ GameObject:
   - 23: {fileID: 413139133}
   - 114: {fileID: 413139137}
   - 54: {fileID: 413139138}
+  - 122: {fileID: 413139139}
   m_Layer: 0
   m_Name: LeftBottom
   m_TagString: ElementBox
@@ -239,6 +240,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!122 &413139139
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 413139132}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286611584
+  m_Size: 5
 --- !u!1 &417358909 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100338, guid: 40046bae76ac54bffb59f14f47d9ba1b, type: 2}
@@ -328,6 +340,7 @@ GameObject:
   - 23: {fileID: 483471183}
   - 114: {fileID: 483471187}
   - 54: {fileID: 483471188}
+  - 122: {fileID: 483471189}
   m_Layer: 0
   m_Name: LeftTop
   m_TagString: Untagged
@@ -417,6 +430,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!122 &483471189
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 483471182}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286611584
+  m_Size: 5
 --- !u!1001 &713498138
 Prefab:
   m_ObjectHideFlags: 0
@@ -967,6 +991,7 @@ MonoBehaviour:
   LeftTop: {fileID: 483471182}
   RightBottom: {fileID: 2004242870}
   RightTop: {fileID: 1745059990}
+  level: 0
 --- !u!4 &1580480712
 Transform:
   m_ObjectHideFlags: 0
@@ -1050,6 +1075,7 @@ GameObject:
   - 23: {fileID: 1745059991}
   - 114: {fileID: 1745059995}
   - 54: {fileID: 1745059996}
+  - 122: {fileID: 1745059997}
   m_Layer: 0
   m_Name: RightTop
   m_TagString: Untagged
@@ -1070,7 +1096,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: c61655761714a884f95607eeb046da14, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
+  m_UseLightProbes: 0
   m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
@@ -1139,6 +1165,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!122 &1745059997
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1745059990}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286611584
+  m_Size: 5
 --- !u!1001 &1834758532
 Prefab:
   m_ObjectHideFlags: 0
@@ -1283,6 +1320,7 @@ GameObject:
   - 23: {fileID: 2004242871}
   - 114: {fileID: 2004242875}
   - 54: {fileID: 2004242876}
+  - 122: {fileID: 2004242877}
   m_Layer: 0
   m_Name: RightBottom
   m_TagString: ElementBox
@@ -1372,6 +1410,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!122 &2004242877
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2004242870}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286611584
+  m_Size: 5
 --- !u!1001 &2142755681
 Prefab:
   m_ObjectHideFlags: 0

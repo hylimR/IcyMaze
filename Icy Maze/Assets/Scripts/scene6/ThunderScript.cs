@@ -22,13 +22,16 @@ public class ThunderScript : MonoBehaviour {
 
 	void DisplayThunder(){
 		for (float i=0; i<5; i++) {
-			Instantiate (thunder, new Vector3 (-7.5f, 6f, i - 12f),Quaternion.identity);
+			Instantiate (thunder, new Vector3 (Random.Range(-11f,-7.5f), 6f, i - 12f),Quaternion.identity);
 		
-			Instantiate (thunder, new Vector3 (7.5f, 6f, i - 12f),Quaternion.identity);
+			Instantiate (thunder, new Vector3 (Random.Range(11f,7.5f), 6f, i - 12f),Quaternion.identity);
 		
-			Instantiate (thunder, new Vector3 (-7.5f, 6f, i +8f),Quaternion.identity);
+			Instantiate (thunder, new Vector3 (Random.Range(11f,-7.5f), 6f, i +8f),Quaternion.identity);
 		
-			Instantiate (thunder, new Vector3 (7.5f, 6f, i +8f),Quaternion.identity);
+			Instantiate (thunder, new Vector3 (Random.Range(11f,-7.5f), 6f, i +8f),Quaternion.identity);
+		}
+		for (int i =0 ;i<5;i++){
+			Instantiate (thunder, new Vector3 (Random.Range(7.5f,-7.5f), 6f,Random.Range(13f,-7f)),Quaternion.identity);
 		}
 		Invoke ("DestoryThunder", 1f);
 	}

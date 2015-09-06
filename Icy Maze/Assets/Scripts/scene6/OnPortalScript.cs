@@ -6,6 +6,7 @@ public class OnPortalScript : MonoBehaviour {
 	public GameObject LeftTop;
 	public  GameObject RightBottom;
 	public  GameObject RightTop;
+	public int level;
 
 
 
@@ -32,7 +33,7 @@ public class OnPortalScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (isCompleted ()) {
-			print ("win");
+			Application.LoadLevel(level);
 		}
 
 		}
