@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameObjectScript : MonoBehaviour {
 	public GameObject fireBox;
-	float timeElapsed = 0f;
+	float timeElapsed = 0.5f;
 	float[] X = {-3f,-5f,-8f,-8f,-10f,-12f, -14f,-14f, -17f, -20f,-20f, -23f, -27, -27f,-27f};
 	float[] Z = {-7f, -3.3f, 0.5f,-3.3f,-7f,0.5f,-3.3f,-7f, 0.5f, -7f,-3.3f, -7f , 0.5f , -3.3f , -7f};
 	int loop = 0;

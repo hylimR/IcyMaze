@@ -71,6 +71,6 @@ public class CMasterScript : MonoBehaviour {
     {
         Destroy(GameObject.Find(MasterScript.firstScene));
         MasterScript.isFirstSceneCompleted = true;
-        winScreen.SetActive(true);
+        MasterScript.main.SetActive(true);
     }
 }

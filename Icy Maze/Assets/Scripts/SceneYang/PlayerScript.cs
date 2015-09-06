@@ -35,7 +35,9 @@ public class PlayerScript : MonoBehaviour {
 			GameObject fireBallSpawn = (GameObject)Instantiate (fireBall, new Vector3 (-33, -4.2f, -5.5f), Quaternion.identity);			
 		}
 		if (other.name.Equals ("Finish")) {
-						
+            Destroy(GameObject.Find(MasterScript.thirdScene));
+            MasterScript.isThirdSceneCompleted = true;
+            MasterScript.main.SetActive(true);
 		}
 	}
 }
