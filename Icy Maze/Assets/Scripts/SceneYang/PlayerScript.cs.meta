@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 3ffd7bb8efd43274bb2a1d0c42070036
-timeCreated: 1441462104
+timeCreated: 1441551829
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fireBall: {fileID: 122826, guid: 5f96309f94f97b148b900fbadd036d64, type: 2}
+  - waterGun: {fileID: 199438, guid: 282ed223f6db9274facbc9cdc377ee8b, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

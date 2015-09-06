@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 08c24336ede2b7447a4bab7c8fe40926
-timeCreated: 1441551839
+guid: f2c314bccf18a5149b36a5e526cde459
+timeCreated: 1441551938
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - fireBox: {fileID: 105786, guid: 7cf38c1806b83fd459d017c15ff935a1, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FireBoxScript : MonoBehaviour {
 
-	public GameObject unityChan;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -14,11 +14,4 @@ public class FireBoxScript : MonoBehaviour {
 		
 	}
 
-	void OnCollisionEnter(Collision other)
-	{
-		if (other.collider.tag ==  "Playerchan") {
-			other.transform.position = new Vector3 (0f, 0f, 0f);
-		}
-
-	}
 }
