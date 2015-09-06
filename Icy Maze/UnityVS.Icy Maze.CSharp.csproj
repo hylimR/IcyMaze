@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -65,12 +63,6 @@
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
@@ -83,6 +75,7 @@
     <Compile Include="Assets\Scripts\Scene3\AlterableBoxScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\ArrowTubeScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\BlockerScript.cs" />
+    <Compile Include="Assets\Scripts\Scene3\GateScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\MagnetScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\PortalScript.cs" />
     <Compile Include="Assets\Scripts\Scene3\RayEmitterScript.cs" />
@@ -93,10 +86,6 @@
     <Compile Include="Assets\Scripts\Scene4\CMasterScript.cs" />
     <Compile Include="Assets\Scripts\Scene4\HitTubeScriptV2.cs" />
     <Compile Include="Assets\Scripts\Scene4\MagicCircleScript.cs" />
-    <Compile Include="Assets\Scripts\SceneYang\FireBallScript.cs" />
-    <Compile Include="Assets\Scripts\SceneYang\FireBoxScript.cs" />
-    <Compile Include="Assets\Scripts\SceneYang\GameObjectScript.cs" />
-    <Compile Include="Assets\Scripts\SceneYang\PlayerScript.cs" />
     <Compile Include="Assets\Scripts\scene6\OnPortalScript.cs" />
     <Compile Include="Assets\Scripts\scene6\RevertPlayerPositionScript.cs" />
     <Compile Include="Assets\Scripts\scene6\ThunderScript.cs" />
