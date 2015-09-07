@@ -5,22 +5,19 @@ public class RayEmitterScript : MonoBehaviour {
 
     LineRenderer lineRenderer;
     float rayDistance;
-	// Use this for initialization
+
 	void Start () {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         rayDistance = 24f;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
+    //Perform a raycast and instantiate a laser to the point of interception
     public void EmitRay()
     {
         Ray ray = new Ray(transform.position, Vector3.forward);
         RaycastHit hit = new RaycastHit();
+        //Trigger the method on arrow tube to transmit the ray to other direction
         if (Physics.Raycast(ray, out hit, rayDistance))
         {
             lineRenderer.enabled = true;
@@ -30,7 +27,7 @@ public class RayEmitterScript : MonoBehaviour {
         }
         Invoke("DisableLightRenderer", 3f);
     }
-
+    //Remove the laser
     void DisableLightRenderer()
     {
         lineRenderer.enabled = false;

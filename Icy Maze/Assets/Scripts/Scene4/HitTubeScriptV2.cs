@@ -18,7 +18,7 @@ public class HitTubeScriptV2 : MonoBehaviour
 
     void Update()
     {
-        //if block is currently moving don't accept input, else move the object by set the destination approriately
+        //if block is currently moving don't accept input, else move the object by set the destination using Vector3.MoveTowards
         if (!isMoving())
         {
             if (Input.GetKeyDown(KeyCode.A))

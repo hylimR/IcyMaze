@@ -123,5 +123,4 @@ public class PlayerMovementScript : MonoBehaviour
         lasPosition = curPosition;
         return true;
     }
-
 }

@@ -6,13 +6,14 @@ public class MagnetScript : MonoBehaviour {
     private RaycastHit hit1, hit2, hit3, hit4;
     private Ray leftRay, rightRay, forwardRay, backRay;
 	void Start () {
+        //Raycast will be perform in four directions
         leftRay = new Ray(transform.position, Vector3.left);
         rightRay = new Ray(transform.position, Vector3.right);
         forwardRay = new Ray(transform.position, Vector3.forward);
         backRay = new Ray(transform.position, Vector3.back);
     }
 
-    //Add a force to push character toward this game object when he/she walk into the raycast range
+    //Add a force to pull character toward this game object when he/she walk into the raycast range
 	void FixedUpdate () {
 	    if(Physics.Raycast(leftRay, out hit1, 24f))
         {

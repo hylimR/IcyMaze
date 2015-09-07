@@ -5,9 +5,10 @@ public class PlayerScript : MonoBehaviour {
 	public GameObject fireBall;
 	public GameObject waterGun;
 	public int bulletNo=3;
+    private Vector3 oriPosition;
 	// Use this for initialization
 	void Start () {
-
+        oriPosition = transform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +23,7 @@ public class PlayerScript : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other){
 		if (other.collider.tag == "fire") {
-			transform.position = new Vector3 (3f, -5f, -3f);
+            transform.localPosition = oriPosition;
 		}
 	}
 

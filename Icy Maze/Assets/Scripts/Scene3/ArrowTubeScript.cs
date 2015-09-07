@@ -21,6 +21,7 @@ public class ArrowTubeScript : MonoBehaviour
 
     void OnCollisionStay(Collision col)
     {
+        //Rotate the tube when player input is detected during collision
         if (col.gameObject.name == "unitychan")
         {
             if (Input.GetKeyDown(KeyCode.K))
@@ -41,16 +42,19 @@ public class ArrowTubeScript : MonoBehaviour
             {
                 lineRenderer.enabled = true;
                 lineRenderer.SetPosition(0, transform.position);
+                //If raycast hit another arrowtube , trigger the method to continuously transmit the ray to next tube
                 if (hit.collider.gameObject.tag == arrowTube)
                 {
                     lineRenderer.SetPosition(1, hit.collider.gameObject.transform.position);
                     hit.collider.gameObject.GetComponent<ArrowTubeScript>().ChangeRayDirection();
                 }
+                //else simply create the laser at the point of interception
                 else
                 {
                     lineRenderer.SetPosition(1, hit.point);
                 }
 
+                //If the raycast hit the rayReceiver, open the gate
                 if(hit.collider.gameObject.name == rayReceiver)
                 {
                     hit.collider.gameObject.GetComponent<RayReceiverScript>().OpenGate();
@@ -65,6 +69,7 @@ public class ArrowTubeScript : MonoBehaviour
         lineRenderer.enabled = false;
     }
 
+    //Change the direction of raycast
     void UpdateDirection()
     {
         int y = (int)(Mathf.Round(transform.eulerAngles.y));

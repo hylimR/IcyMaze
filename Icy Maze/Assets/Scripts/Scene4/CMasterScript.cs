@@ -5,7 +5,6 @@ using UnityEngine.UI;
 //Master script to control current scene
 public class CMasterScript : MonoBehaviour {
 
-    public GameObject winScreen;
     public GameObject instruction;
     public GameObject startButton, showInstructButton;
     public GameObject mCircle1, mCircle2, mCircle3, mCircle4;
@@ -19,7 +18,6 @@ public class CMasterScript : MonoBehaviour {
         s3 = mCircle4.GetComponent<MagicCircleScript>();
         s4 = mCircle4.GetComponent<MagicCircleScript>();
         //hide win screen
-        winScreen.SetActive(false);
         UnityEngine.Events.UnityAction action = () => { ShowInstruction(); };
         startButton.GetComponent<Button>().onClick.AddListener(action);
 
