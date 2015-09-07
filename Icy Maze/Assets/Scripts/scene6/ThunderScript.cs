@@ -12,7 +12,8 @@ public class ThunderScript : MonoBehaviour {
 	}
 
 	void DisplayThunder(){
-		for (float i=0; i<2; i++) {
+		for (float i=0; i<2; i++) 
+		{	//generate thunder around the trigger sheet
 			Instantiate (thunder, new Vector3 (parent.x + Random.Range(-11f,-7.5f), parent.y + 6f, parent.z + i - 12f),Quaternion.identity);
 		
 			Instantiate (thunder, new Vector3 (parent.x  + Random.Range(11f,7.5f), parent.y + 6f, parent.z + i - 12f),Quaternion.identity);
@@ -21,12 +22,14 @@ public class ThunderScript : MonoBehaviour {
 		
 			Instantiate (thunder, new Vector3 (parent.x + Random.Range(11f,-7.5f), parent.y + 6f, parent.z + i +8f),Quaternion.identity);
 		}
-		for (int i =0 ;i<5;i++){
+		for (int i =0 ;i<5;i++)
+		{//generate random thunder in the script;
 			Instantiate (thunder, new Vector3 (parent.x + Random.Range(7.5f,-7.5f), parent.y + 6f, parent.z + Random.Range(13f,-7f)),Quaternion.identity);
 		}
 		Invoke ("DestoryThunder", 1f);
 	}
-	void DestoryThunder(){
+	void DestoryThunder()
+	{ // destory the thunder
 		thunderTobeDestory = GameObject.FindGameObjectsWithTag ("thunder");
 		for (int i=0; i<thunderTobeDestory.Length; i++) {
 			Destroy (thunderTobeDestory[i]);

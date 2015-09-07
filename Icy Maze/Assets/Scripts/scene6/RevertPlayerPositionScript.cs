@@ -10,19 +10,19 @@ public class RevertPlayerPositionScript : MonoBehaviour {
         originalPos = transform.position;
     }
 
-	void OnTriggerEnter(Collider other){
+	void OnTriggerEnter(Collider other){// send player back to original position
 		if (other.tag == "TrapBox") {
 			transform.position = originalPos;
 			PlayerDie++;
 		}
 	}
-	void OnCollisionEnter(Collision other){
+	void OnCollisionEnter(Collision other){ // send player back to original position
 		if (other.collider.tag == "thunder") {
 			transform.position = originalPos;
 			PlayerDie++;
 		}
 	}
-	void OnGUI(){
+	void OnGUI(){ // display basic infomation
 		GUI.Box(new Rect(0, 10, 250, 150), "Infomation");
 		GUI.Label(new Rect(0, 30, 250, 30), "Winning Condition");
 		GUI.Label(new Rect(0, 50, 250, 30), "Light up all the trigger sheet");

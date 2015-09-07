@@ -31,7 +31,7 @@ public class OnPortalScript : MonoBehaviour
     }
     private bool isCompleted()
     {
-        if (l1.isOn && r2.isOn && l2.isOn && r1.isOn)
+        if (l1.isOn && r2.isOn && l2.isOn && r1.isOn) // check the winning condition
         { return true; }
         else
         { return false; }
