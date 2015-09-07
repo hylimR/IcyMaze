@@ -3,38 +3,60 @@ using System.Collections;
 
 public class ThunderScript : MonoBehaviour {
 	public GameObject thunder;
-	private GameObject[] thunderTobeDestory;
+	public GameObject target;
+	public int numberOfThunder;//minimum 8
+	private GameObject[] thunderTobeDestroy;
+	private GameObject[] targetTobeDestroy;
     private Vector3 parent;
+	private Vector3[] targetPosition;
 
 	void Start () {
-		Invoke ("DisplayThunder", 0.5f);
+		Invoke ("DisplayTarget", 0.5f);
         parent = transform.position;
+		targetPosition = new Vector3[numberOfThunder];
 	}
 
 	void DisplayThunder(){
+		for (int i =0; i<targetPosition.Length; i++) {	//generate thunder around the trigger sheet
+			Instantiate (thunder,new Vector3(targetPosition[i].x,targetPosition[i].y+6f,targetPosition[i].z), Quaternion.identity);
+		
+		}
+		Invoke ("DestroyThunder", 1f);
+	}
+	void DestroyThunder()
+	{ // destroy the thunder
+		thunderTobeDestroy = GameObject.FindGameObjectsWithTag ("thunder");
+		for (int i=0; i<thunderTobeDestroy.Length; i++) {
+			Destroy (thunderTobeDestroy[i]);
+		}
+		Invoke ("DisplayTarget", 0.5f);
+
+	}
+	void DisplayTarget(){
 		for (float i=0; i<2; i++) 
 		{	//generate thunder around the trigger sheet
-			Instantiate (thunder, new Vector3 (parent.x + Random.Range(-11f,-7.5f), parent.y + 6f, parent.z + i - 12f),Quaternion.identity);
-		
-			Instantiate (thunder, new Vector3 (parent.x  + Random.Range(11f,7.5f), parent.y + 6f, parent.z + i - 12f),Quaternion.identity);
-		
-			Instantiate (thunder, new Vector3 (parent.x + Random.Range(11f,-7.5f), parent.y + 6f, parent.z + i +8f),Quaternion.identity);
-		
-			Instantiate (thunder, new Vector3 (parent.x + Random.Range(11f,-7.5f), parent.y + 6f, parent.z + i +8f),Quaternion.identity);
+			Instantiate (target, new Vector3 (parent.x + Random.Range(-11f,-7.5f), parent.y , parent.z + i - 12f),Quaternion.identity);
+			
+			Instantiate (target, new Vector3 (parent.x  + Random.Range(11f,7.5f), parent.y , parent.z + i - 12f),Quaternion.identity);
+			
+			Instantiate (target, new Vector3 (parent.x + Random.Range(11f,-7.5f), parent.y , parent.z + i +8f),Quaternion.identity);
+			
+			Instantiate (target, new Vector3 (parent.x + Random.Range(11f,-7.5f), parent.y , parent.z + i +8f),Quaternion.identity);
 		}
-		for (int i =0 ;i<5;i++)
+		for (int i =0 ;i<numberOfThunder-8;i++)
 		{//generate random thunder in the script;
-			Instantiate (thunder, new Vector3 (parent.x + Random.Range(7.5f,-7.5f), parent.y + 6f, parent.z + Random.Range(13f,-7f)),Quaternion.identity);
+			Instantiate (target, new Vector3 (parent.x + Random.Range(7.5f,-7.5f), parent.y , parent.z + Random.Range(13f,-7f)),Quaternion.identity);
 		}
-		Invoke ("DestoryThunder", 1f);
+		Invoke ("DestroyTarget", 1f);
 	}
-	void DestoryThunder()
+	void DestroyTarget()
 	{ // destory the thunder
-		thunderTobeDestory = GameObject.FindGameObjectsWithTag ("thunder");
-		for (int i=0; i<thunderTobeDestory.Length; i++) {
-			Destroy (thunderTobeDestory[i]);
+		targetTobeDestroy = GameObject.FindGameObjectsWithTag ("target");
+		for (int i=0; i<targetTobeDestroy.Length; i++) {
+			targetPosition[i]=targetTobeDestroy[i].transform.position;
+			Destroy (targetTobeDestroy[i]);
 		}
 		Invoke ("DisplayThunder", 0.5f);
-
+		
 	}
 }

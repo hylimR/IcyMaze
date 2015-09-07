@@ -1531,7 +1531,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: .5
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: .75, z: 0}
@@ -2543,18 +2543,6 @@ Prefab:
     - target: {fileID: 119422, guid: 98cafccd0b6172848b995159bc69e49b, type: 2}
       propertyPath: m_Name
       value: trapbox (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 451106, guid: 98cafccd0b6172848b995159bc69e49b, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 451106, guid: 98cafccd0b6172848b995159bc69e49b, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 451106, guid: 98cafccd0b6172848b995159bc69e49b, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98cafccd0b6172848b995159bc69e49b, type: 2}
@@ -4653,7 +4641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 417358909}
-  height: -10
+  height: -8
   x_axis: 6
   z_axis: 5
 --- !u!1 &1273895781
@@ -5443,6 +5431,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thunder: {fileID: 141896, guid: b379ce4aac4e8bf448002c54a5ca4d08, type: 2}
+  target: {fileID: 116998, guid: ebb8fd2be6cd2754c8a8da7ff871bbf1, type: 2}
+  numberOfThunder: 8
 --- !u!1 &1580873875
 GameObject:
   m_ObjectHideFlags: 0
