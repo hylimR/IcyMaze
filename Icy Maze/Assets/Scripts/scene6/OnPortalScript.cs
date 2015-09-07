@@ -9,7 +9,6 @@ public class OnPortalScript : MonoBehaviour
     public GameObject RightTop;
     public int level;
     TriggersheetScript l1, l2, r1, r2;
-    public GameObject mainScene;
     // Use this for initialization
     void Start()
     {
@@ -17,7 +16,6 @@ public class OnPortalScript : MonoBehaviour
         l2 = LeftTop.GetComponent<TriggersheetScript>();
         r1 = RightBottom.GetComponent<TriggersheetScript>();
         r2 = RightTop.GetComponent<TriggersheetScript>();
-        mainScene = GameObject.Find("Main");
     }
 
     // Update is called once per frame

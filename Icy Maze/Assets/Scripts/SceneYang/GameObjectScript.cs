@@ -19,7 +19,7 @@ public class GameObjectScript : MonoBehaviour {
 
 		if (check) {
 			timeElapsed += Time.deltaTime;
-			if (timeElapsed >= 1.2f) {
+			if (timeElapsed >= 1f) {
 				GameObject appear = (GameObject)Instantiate (fireBox, new Vector3 (X[loop], 10f, Z[loop]), Quaternion.identity);
 				timeElapsed = 0f;
 				loop++;
