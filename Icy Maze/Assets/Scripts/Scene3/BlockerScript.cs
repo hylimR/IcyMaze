@@ -1,41 +1,38 @@
-﻿using UnityEngine;
 using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
+/// Spinning hazard that patrols a four-point loop and shoves the player on contact.
 public class BlockerScript : MonoBehaviour
 {
+    static bool layerCollisionsDisabled;
+
     public Vector3 pos1, pos2, pos3, pos4;
-    public float rate;
-    //linearly repeat moving between the four position set
-    void Start()
+    public float rate = 1f;
+
+    [SerializeField] float spinDegreesPerSecond = 180f;
+    [SerializeField] float knockbackImpulse = 8f;
+    [SerializeField] float knockbackCooldown = 0.5f;
+
+    float nextKnockback;
+
+    void Awake()
     {
-        Physics.IgnoreLayerCollision(8, 8, true);
-        StartCoroutine(Moving());
-    }
-    //Restart the coroutine when the game object is reactivated
-    void OnEnable()
-    {
-        StartCoroutine(Moving());
+        if (layerCollisionsDisabled) return;
+
+        int blockerLayer = LayerMask.NameToLayer("Blocker");
+        if (blockerLayer >= 0) Physics.IgnoreLayerCollision(blockerLayer, blockerLayer, true);
+        layerCollisionsDisabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Rotate(Vector3.forward, Time.deltaTime * 180, Space.Self);
-    }
+    // Start also kicked off the patrol, so every blocker ran two copies of the loop at
+    // once and jittered between two targets.
+    void OnEnable() => StartCoroutine(Moving());
 
-    //Move the objects in iteration
-    IEnumerator Move(Vector3 des)
-    {
-        float i = 0f;
-        while (i < 1.0f)
-        {
-            i += Time.fixedDeltaTime;
-            transform.localPosition = Vector3.Slerp(transform.localPosition, des, i * rate);
-            yield return null;
-        }
-    }
-    
-    //Create a infinite loop to continuously move game object over four different pre-defined position
+    void OnDisable() => StopAllCoroutines();
+
+    void Update() => transform.Rotate(Vector3.forward, spinDegreesPerSecond * Time.deltaTime, Space.Self);
+
     IEnumerator Moving()
     {
         while (true)
@@ -47,10 +44,32 @@ public class BlockerScript : MonoBehaviour
         }
     }
 
-    //Apply a strong impulsive force to player whenever collided
+    IEnumerator Move(Vector3 destination)
+    {
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            transform.localPosition = Vector3.Slerp(transform.localPosition, destination, t * rate);
+            yield return null;
+        }
+    }
+
     void OnCollisionStay(Collision col)
     {
-        if (gameObject.name == MasterScript.playerName)
-            col.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-30, 30), 0f, Random.Range(-30, 30)), ForceMode.Impulse);
+        // The original tested this blocker's own name against the player's, so the shove
+        // never fired. Restoring it at the original strength -- a fresh 30-unit impulse on
+        // every physics step -- would fire the player out of the level, so it is now one
+        // bounded knock with a cooldown.
+        if (Time.time < nextKnockback || !PlayerRef.Is(col.gameObject)) return;
+
+        Rigidbody hit = col.rigidbody;
+        if (hit == null) return;
+
+        nextKnockback = Time.time + knockbackCooldown;
+        Vector3 away = col.transform.position - transform.position;
+        away.y = 0f;
+        if (away.sqrMagnitude < 0.001f) away = Random.insideUnitSphere;
+        hit.AddForce(away.normalized * knockbackImpulse, ForceMode.Impulse);
     }
 }

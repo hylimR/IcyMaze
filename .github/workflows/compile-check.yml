@@ -1,0 +1,26 @@
+name: Compile check
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  typecheck:
+    name: Type-check gameplay scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Build against Unity API stubs
+        run: dotnet build Tools/CompileCheck/CompileCheck.csproj --nologo -warnaserror
+
+      - name: Build again with UNITY_EDITOR defined
+        run: dotnet build Tools/CompileCheck/CompileCheck.Editor.csproj --nologo -warnaserror
+
+      - name: Reject APIs removed since Unity 5
+        run: python3 Tools/check_legacy_apis.py

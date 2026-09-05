@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Same sources as CompileCheck.csproj, with UNITY_EDITOR defined, so the
+       editor-only branches of runtime scripts are type-checked as well. -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>IcyMaze.CompileCheck.Editor</AssemblyName>
+    <RootNamespace>IcyMaze.CompileCheck</RootNamespace>
+    <DefineConstants>$(DefineConstants);UNITY_EDITOR;UNITY_STANDALONE</DefineConstants>
+    <NoWarn>CS0169;CS0649;CS0414;CS0067;CS0108;CS0114;CS0282</NoWarn>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Stubs/**/*.cs" />
+    <Compile Include="../../Icy Maze/Assets/Scripts/**/*.cs" />
+    <Compile Include="../../Icy Maze/Assets/UnityChan/Scripts/**/*.cs" />
+  </ItemGroup>
+
+</Project>

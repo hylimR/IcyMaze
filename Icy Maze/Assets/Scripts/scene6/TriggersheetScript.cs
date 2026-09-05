@@ -1,27 +1,24 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
+/// Pressure plate that stays lit once the player has touched it.
 public class TriggersheetScript : MonoBehaviour
 {
     public bool isOn;
+
     Behaviour halo;
-    // Use this for initialization
+
     void Start()
     {
-        isOn = false;
-        halo = (Behaviour)GetComponent("Halo");
-        halo.enabled = false;
+        halo = GetComponent("Halo") as Behaviour;
+        if (halo != null) halo.enabled = isOn;
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision col)
     {
-        if (other.collider.tag == "Playerchan")
-        {
+        if (isOn || !PlayerRef.Is(col.gameObject)) return;
 
-            isOn = true;
-            halo.enabled = true;
-
-        }
+        isOn = true;
+        if (halo != null) halo.enabled = true;
     }
-
 }

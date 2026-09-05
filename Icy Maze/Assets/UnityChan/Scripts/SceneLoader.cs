@@ -1,8 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour {
-
+// Unity-chan sample script. Application.LoadLevel and friends were removed from the
+// engine years ago; ported to SceneManager so the package still compiles.
+public class SceneLoader : MonoBehaviour
+{
 	void OnGUI()
 	{
 		GUI.Box(new Rect(10 , Screen.height - 100 ,100 ,90), "Change Scene");
@@ -14,20 +16,20 @@ public class SceneLoader : MonoBehaviour {
 
 	void LoadPreScene()
 	{
-		int nextLevel = Application.loadedLevel + 1;
-		if( nextLevel <= 1)
-			nextLevel = Application.levelCount;
-
-		Application.LoadLevel(nextLevel);
+		Step(-1);
 	}
 
 	void LoadNextScene()
 	{
-		int nextLevel = Application.loadedLevel + 1;
-		if( nextLevel >= Application.levelCount)
-			nextLevel = 1;
+		Step(1);
+	}
 
-		Application.LoadLevel(nextLevel);
+	void Step(int direction)
+	{
+		int count = SceneManager.sceneCountInBuildSettings;
+		if (count <= 0) return;
 
+		int index = SceneManager.GetActiveScene().buildIndex + direction;
+		SceneManager.LoadScene(((index % count) + count) % count);
 	}
 }

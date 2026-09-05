@@ -1,47 +1,24 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
-public class MagnetScript : MonoBehaviour {
+/// Pulls the player in whenever they cross one of its four sight lines.
+public class MagnetScript : MonoBehaviour
+{
+    static readonly Vector3[] Directions = { Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
 
-    private RaycastHit hit1, hit2, hit3, hit4;
-    private Ray leftRay, rightRay, forwardRay, backRay;
-	void Start () {
-        //Raycast will be perform in four directions
-        leftRay = new Ray(transform.position, Vector3.left);
-        rightRay = new Ray(transform.position, Vector3.right);
-        forwardRay = new Ray(transform.position, Vector3.forward);
-        backRay = new Ray(transform.position, Vector3.back);
-    }
+    [SerializeField] float range = 24f;
+    [SerializeField] float pullAcceleration = 20f;
 
-    //Add a force to pull character toward this game object when he/she walk into the raycast range
-	void FixedUpdate () {
-	    if(Physics.Raycast(leftRay, out hit1, 24f))
+    void FixedUpdate()
+    {
+        // Rays were built once in Start from the position the magnet had at load time.
+        foreach (Vector3 direction in Directions)
         {
-            if (hit1.collider != null && hit1.collider.name == MasterScript.playerName)
-            {
-                hit1.collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.right * 1000 * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
-        }
-        if (Physics.Raycast(rightRay, out hit2, 24f))
-        {
-            if (hit2.collider != null && hit2.collider.name == MasterScript.playerName)
-            {
-                hit2.collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.left * 1000 * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
-        }
-        if (Physics.Raycast(forwardRay, out hit3, 24f))
-        {
-            if (hit3.collider != null && hit3.collider.name == MasterScript.playerName)
-            {
-                hit3.collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * 1000 * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
-        }
-        if (Physics.Raycast(backRay, out hit4, 24f))
-        {
-            if (hit4.collider != null && hit4.collider.name == MasterScript.playerName)
-            {
-                hit4.collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.forward * 1000 * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
+            if (!Physics.Raycast(transform.position, direction, out RaycastHit hit, range)) continue;
+            if (!PlayerRef.Is(hit.collider)) continue;
+
+            Rigidbody body = hit.rigidbody;
+            if (body != null) body.AddForce(-direction * pullAcceleration, ForceMode.Acceleration);
         }
     }
 }

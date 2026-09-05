@@ -1,36 +1,27 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
+/// Toggles a blocking wall on and off.
 public class SwitchScript : MonoBehaviour
 {
     public GameObject connectedBlock;
-    private bool isActivated = false;
 
-    // Update is called once per frame
-    void Update()
+    ActionLatch action;
+    bool isActivated;
+
+    void Start() => Apply();
+
+    void OnTriggerStay(Collider col)
     {
-        if (isActivated)
-        {
-            connectedBlock.SetActive(false);
-        }
-        else
-        {
-            connectedBlock.SetActive(true);
-        }
+        if (!PlayerRef.Is(col) || !action.Consume()) return;
+
+        isActivated = !isActivated;
+        Apply();
     }
 
-    //Toggle to open/close the blockage
-    void OnTriggerStay(Collider collider)
+    // The original called SetActive on the wall every single frame from Update.
+    void Apply()
     {
-        if(collider.gameObject.name == MasterScript.playerName)
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                if (!isActivated)
-                    isActivated = true;
-                else
-                    isActivated = false;
-            }
-        }
+        if (connectedBlock != null) connectedBlock.SetActive(!isActivated);
     }
 }

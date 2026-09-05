@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
-public class RayReceiverScript : MonoBehaviour {
-
+public class RayReceiverScript : MonoBehaviour
+{
     public GameObject gate;
-    //Open the gate
+
     public void OpenGate()
     {
-        gate.GetComponent<GateScript>().Open();
+        GateScript target = gate != null ? gate.GetComponent<GateScript>() : null;
+        if (target != null) target.Open();
     }
 }

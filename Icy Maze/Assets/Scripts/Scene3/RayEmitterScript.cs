@@ -1,35 +1,49 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
-public class RayEmitterScript : MonoBehaviour {
+/// Beam source. Fires along world forward -- the same axis the 2015 puzzle was laid out
+/// against, so this deliberately ignores the emitter's own rotation.
+[RequireComponent(typeof(LineRenderer))]
+public class RayEmitterScript : MonoBehaviour
+{
+    [SerializeField] float rayDistance = 24f;
+    [SerializeField] float beamSeconds = 3f;
 
     LineRenderer lineRenderer;
-    float rayDistance;
+    float beamTimer;
 
-	void Start () {
+    void Awake()
+    {
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
         lineRenderer.enabled = false;
-        rayDistance = 24f;
-	}
+    }
 
-    //Perform a raycast and instantiate a laser to the point of interception
+    void Update()
+    {
+        if (beamTimer <= 0f) return;
+
+        beamTimer -= Time.deltaTime;
+        if (beamTimer <= 0f) lineRenderer.enabled = false;
+    }
+
     public void EmitRay()
     {
-        Ray ray = new Ray(transform.position, Vector3.forward);
-        RaycastHit hit = new RaycastHit();
-        //Trigger the method on arrow tube to transmit the ray to other direction
-        if (Physics.Raycast(ray, out hit, rayDistance))
+        if (beamTimer > 0f) return;
+
+        beamTimer = beamSeconds;
+        lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, transform.position);
+
+        if (!Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, rayDistance))
         {
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, hit.collider.gameObject.transform.position);
-            hit.collider.gameObject.GetComponent<ArrowTubeScript>().ChangeRayDirection();
+            lineRenderer.SetPosition(1, transform.position + Vector3.forward * rayDistance);
+            return;
         }
-        Invoke("DisableLightRenderer", 3f);
-    }
-    //Remove the laser
-    void DisableLightRenderer()
-    {
-        lineRenderer.enabled = false;
+
+        // The original assumed the first thing hit was always a tube and threw a null
+        // reference the moment anything else got in the way.
+        ArrowTubeScript tube = hit.collider.GetComponent<ArrowTubeScript>();
+        lineRenderer.SetPosition(1, tube != null ? tube.transform.position : hit.point);
+        if (tube != null) tube.ChangeRayDirection();
     }
 }

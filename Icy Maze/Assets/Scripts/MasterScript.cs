@@ -1,66 +1,68 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+using IcyMaze;
+using IcyMaze.UI;
+using UnityEngine;
 
-//Master class to store global data
+/// Sits on the hub's "Main" root object. It used to double as the global variable bag;
+/// run state now lives in GameProgress and scene transitions in SceneFlow, so this is
+/// just the hub's own presenter.
+[RequireComponent(typeof(AudioSource))]
 public class MasterScript : MonoBehaviour
 {
-    public static string mainScene = "Main";
-    public static GameObject main;
-    public static string firstScene = "scene_four";
-    public static string secondScene = "scene_six";
-    public static string thirdScene = "scene_yang";
+    public const string mainScene = GameScenes.HubRootObject;
+    public const string firstScene = GameScenes.IceTrial;
+    public const string secondScene = GameScenes.StormTrial;
+    public const string thirdScene = GameScenes.FireTrial;
 
-    public static bool isFirstSceneCompleted = false;
-    public static bool isSecondSceneCompleted = false;
-    public static bool isThirdSceneCompleted = false;
-    public static string playerName = "unitychan";
-    private AudioSource victory;
+    /// Legacy identifier kept so untouched scene data still resolves; PlayerRef is the
+    /// supported way to ask whether something is the player.
+    public const string playerName = "unitychan";
+
     public AudioClip victoryOST;
     public Texture winScreen;
-    private bool isAudioPlaying = false;
+
+    AudioSource victory;
+    bool victoryPlayed;
+
+    public static GameObject Main { get; private set; }
+
+    public static bool IsSceneComplete(string scene) => GameProgress.IsComplete(scene);
+
+    void Awake()
+    {
+        Main = gameObject;
+        SceneFlow.RegisterHubRoot(gameObject);
+        victory = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
-        MasterScript.main = this.gameObject;
-        victory = GetComponent<AudioSource>();
+        if (GameHud.Instance != null)
+        {
+            GameHud.Instance.SetWinScreen(winScreen);
+            GameHud.Instance.SetHint(GameScenes.Objective(GameScenes.Hub));
+        }
     }
 
     void Update()
     {
-        //If the game is completed, Play the victory sound and freeze the game
-        if (isFirstSceneCompleted && isSecondSceneCompleted && isThirdSceneCompleted)
-        {
-            if (!isAudioPlaying)
-            {
-                victory.clip = victoryOST;
-                victory.Play();
-                isAudioPlaying = true;
-                Time.timeScale = 0;
-            }
-        }
-    }
+        if (victoryPlayed || !GameProgress.RunComplete) return;
 
-    public static bool IsSceneComplete(string scene)
-    {
-        //Check whether the scenes is completed
-        switch (scene)
-        {
-            case "scene_four": return isFirstSceneCompleted;
-            case "scene_six": return isSecondSceneCompleted;
-            case "scene_yang": return isThirdSceneCompleted;
-        }
-        return false;
-    }
+        victoryPlayed = true;
+        GameProgress.Save();
 
-    void OnGUI()
-    {
-        GUI.Box(new Rect(Screen.width / 2 + 350, Screen.height / 2 - 400, 300, 90),
-                            "1. WASD for movement, \n2.K for action key to activate traps/toggles" + 
-                            "\n 3. Search for portal in the maze \n4.complete three of them to complete the game");
-        //Show the winning screen when game is completed
-        if (isFirstSceneCompleted && isSecondSceneCompleted && isThirdSceneCompleted)
+        if (victory != null && victoryOST != null)
         {
-            GUI.DrawTexture(new Rect(Screen.width /2 - 400, Screen.height /2 - 200, 1100, 400), winScreen);
+            victory.clip = victoryOST;
+            victory.Play();
         }
+
+        if (GameHud.Instance != null)
+        {
+            GameHud.Instance.SetWinScreen(winScreen);
+            GameHud.Instance.ShowWinScreen(true);
+        }
+
+        GameInput.GameplayEnabled = false;
+        Time.timeScale = 0f;
     }
 }

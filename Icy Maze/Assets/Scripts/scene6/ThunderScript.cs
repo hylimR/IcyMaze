@@ -1,62 +1,100 @@
-﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using IcyMaze;
+using UnityEngine;
 
-public class ThunderScript : MonoBehaviour {
-	public GameObject thunder;
-	public GameObject target;
-	public int numberOfThunder;//minimum 8
-	private GameObject[] thunderTobeDestroy;
-	private GameObject[] targetTobeDestroy;
-    private Vector3 parent;
-	private Vector3[] targetPosition;
+/// Telegraphs a lightning pattern with ground markers, then strikes it.
+public class ThunderScript : MonoBehaviour
+{
+    public GameObject thunder;
+    public GameObject target;
+    public int numberOfThunder = 8;
 
-	void Start () {
-		Invoke ("DisplayTarget", 0.5f);
-        parent = transform.position;
-		targetPosition = new Vector3[numberOfThunder];
-	}
+    [SerializeField] float markSeconds = 1f;
+    [SerializeField] float strikeSeconds = 1f;
+    [SerializeField] float gapSeconds = 0.5f;
 
-	void DisplayThunder(){
-		for (int i =0; i<targetPosition.Length; i++) {	//generate thunder around the trigger sheet
-			Instantiate (thunder,new Vector3(targetPosition[i].x,targetPosition[i].y+5.7f,targetPosition[i].z), Quaternion.identity);
-		
-		}
-		Invoke ("DestroyThunder", 1f);
-	}
-	void DestroyThunder()
-	{ // destroy the thunder
-		thunderTobeDestroy = GameObject.FindGameObjectsWithTag ("thunder");
-		for (int i=0; i<thunderTobeDestroy.Length; i++) {
-			Destroy (thunderTobeDestroy[i]);
-		}
-		Invoke ("DisplayTarget", 0.5f);
+    readonly List<GameObject> spawned = new List<GameObject>();
+    readonly List<Vector3> spots = new List<Vector3>();
+    Vector3 origin;
 
-	}
-	void DisplayTarget(){
-		for (float i=0; i<2; i++) 
-		{	//generate target around the trigger sheet
-			Instantiate (target, new Vector3 (parent.x + Random.Range(-11f,-7.5f), parent.y+0.3f , parent.z + i - 12f),Quaternion.identity);
-			
-			Instantiate (target, new Vector3 (parent.x  + Random.Range(11f,7.5f), parent.y+0.3f , parent.z + i - 12f),Quaternion.identity);
-			
-			Instantiate (target, new Vector3 (parent.x + Random.Range(11f,-7.5f), parent.y+0.3f, parent.z + i +8f),Quaternion.identity);
-			
-			Instantiate (target, new Vector3 (parent.x + Random.Range(11f,-7.5f), parent.y+0.3f , parent.z + i +8f),Quaternion.identity);
-		}
-		for (int i =0 ;i<numberOfThunder-8;i++)
-		{//generate random target in the scene;
-			Instantiate (target, new Vector3 (parent.x + Random.Range(7.5f,-7.5f), parent.y+0.3f , parent.z + Random.Range(13f,-7f)),Quaternion.identity);
-		}
-		Invoke ("DestroyTarget", 1f);
-	}
-	void DestroyTarget()
-	{ // destory the target
-		targetTobeDestroy = GameObject.FindGameObjectsWithTag ("target");
-		for (int i=0; i<targetTobeDestroy.Length; i++) {
-			targetPosition[i]=targetTobeDestroy[i].transform.position;
-			Destroy (targetTobeDestroy[i]);
-		}
-		Invoke ("DisplayThunder", 0.5f);
-		
-	}
+    void Awake() => origin = transform.position;
+
+    void OnEnable() => StartCoroutine(Cycle());
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        Clear();
+    }
+
+    IEnumerator Cycle()
+    {
+        yield return new WaitForSeconds(gapSeconds);
+
+        while (true)
+        {
+            SpawnTargets();
+            yield return new WaitForSeconds(markSeconds);
+            Clear();
+
+            yield return new WaitForSeconds(gapSeconds);
+            SpawnThunder();
+            yield return new WaitForSeconds(strikeSeconds);
+            Clear();
+
+            yield return new WaitForSeconds(gapSeconds);
+        }
+    }
+
+    void SpawnTargets()
+    {
+        spots.Clear();
+        // numberOfThunder below 8 used to size the position buffer smaller than the eight
+        // fixed markers and threw IndexOutOfRange on the first strike.
+        int count = Mathf.Max(8, numberOfThunder);
+
+        for (int i = 0; i < 2; i++)
+        {
+            Mark(new Vector3(origin.x + Random.Range(-11f, -7.5f), origin.y + 0.3f, origin.z + i - 12f));
+            Mark(new Vector3(origin.x + Random.Range(7.5f, 11f), origin.y + 0.3f, origin.z + i - 12f));
+            Mark(new Vector3(origin.x + Random.Range(-7.5f, 11f), origin.y + 0.3f, origin.z + i + 8f));
+            Mark(new Vector3(origin.x + Random.Range(-7.5f, 11f), origin.y + 0.3f, origin.z + i + 8f));
+        }
+
+        for (int i = spots.Count; i < count; i++)
+        {
+            Mark(new Vector3(origin.x + Random.Range(-7.5f, 7.5f), origin.y + 0.3f, origin.z + Random.Range(-7f, 13f)));
+        }
+    }
+
+    void SpawnThunder()
+    {
+        foreach (Vector3 spot in spots)
+        {
+            Track(Spawner.InSceneOf(thunder, spot + new Vector3(0f, 5.7f, 0f), Quaternion.identity, gameObject));
+        }
+    }
+
+    void Mark(Vector3 spot)
+    {
+        spots.Add(spot);
+        Track(Spawner.InSceneOf(target, spot, Quaternion.identity, gameObject));
+    }
+
+    void Track(GameObject instance)
+    {
+        if (instance != null) spawned.Add(instance);
+    }
+
+    /// Tracks what it spawned instead of sweeping the whole scene by tag, which used to
+    /// pick up the markers belonging to every other spawner in the level.
+    void Clear()
+    {
+        foreach (GameObject instance in spawned)
+        {
+            if (instance != null) Destroy(instance);
+        }
+        spawned.Clear();
+    }
 }
