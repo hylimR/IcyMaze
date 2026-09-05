@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Type-checks every gameplay script against hand-written Unity API stubs.
+    It is not a substitute for opening the editor, but it catches the class of
+    mistake that used to need a full Unity install to find: typos, wrong
+    argument counts, APIs removed since 2015, and members that do not exist.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>IcyMaze.CompileCheck</AssemblyName>
+    <RootNamespace>IcyMaze.CompileCheck</RootNamespace>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <!-- Unused/never-assigned serialized fields are normal in Unity code. -->
+    <NoWarn>CS0169;CS0649;CS0414;CS0067;CS0108;CS0114;CS0282</NoWarn>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Stubs/**/*.cs" />
+    <Compile Include="../../Icy Maze/Assets/Scripts/**/*.cs" />
+    <Compile Include="../../Icy Maze/Assets/UnityChan/Scripts/**/*.cs" />
+  </ItemGroup>
+
+</Project>
