@@ -1,31 +1,46 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
-public class RevertPlayerPositionScript : MonoBehaviour {
-	public int PlayerDie;
-    private Vector3 originalPos;
+/// Sends the player back to the start of the Trial of Storms when a trap or a lightning
+/// bolt catches them.
+public class RevertPlayerPositionScript : MonoBehaviour
+{
+    const string TrapTag = "TrapBox";
+    const string ThunderTag = "thunder";
+
+    public int PlayerDie;
+
+    Vector3 originalPos;
+    Rigidbody body;
 
     void Start()
     {
         originalPos = transform.position;
+        body = GetComponent<Rigidbody>();
     }
 
-	void OnTriggerEnter(Collider other){// send player back to original position
-		if (other.tag == "TrapBox") {
-			transform.position = originalPos;
-			PlayerDie++;
-		}
-	}
-	void OnCollisionEnter(Collision other){ // send player back to original position
-		if (other.collider.tag == "thunder") {
-			transform.position = originalPos;
-			PlayerDie++;
-		}
-	}
-	void OnGUI(){ // display basic infomation
-		GUI.Box(new Rect(0, 10, 250, 150), "Infomation");
-		GUI.Label(new Rect(0, 30, 250, 30), "Winning Condition");
-		GUI.Label(new Rect(0, 50, 250, 30), "Light up all the trigger sheet");
-		GUI.Label(new Rect(0, 70, 250, 30), "Player Died :"+PlayerDie);
-	}
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(TrapTag)) Respawn();
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.CompareTag(ThunderTag)) Respawn();
+    }
+
+    void Respawn()
+    {
+        transform.position = originalPos;
+        // Carrying the old velocity through a respawn used to fling the player straight
+        // back into whatever had just killed them.
+        if (body != null)
+        {
+            body.linearVelocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+        }
+
+        PlayerDie++;
+        GameProgress.RecordDeath();
+    }
 }

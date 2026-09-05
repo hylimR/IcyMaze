@@ -1,29 +1,42 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
-public class PortalScript : MonoBehaviour {
+/// Doorway from the hub into one of the three trials.
+public class PortalScript : MonoBehaviour
+{
+    const float SpentBrightness = 0.1f;
 
     public string scene;
     public GameObject mainScene;
-    void Update()
+
+    LensFlare flare;
+    float litBrightness = 1f;
+
+    void Awake()
     {
-        //After scene is completed, distinguish the light
-        if (MasterScript.IsSceneComplete(scene))
-        {
-            GetComponent<LensFlare>().brightness = 0.1f;
-        }
+        flare = GetComponent<LensFlare>();
+        if (flare != null) litBrightness = flare.brightness;
     }
+
+    // The original re-read the completion flag and reassigned the flare every frame.
+    void OnEnable()
+    {
+        GameProgress.Changed += Refresh;
+        Refresh();
+    }
+
+    void OnDisable() => GameProgress.Changed -= Refresh;
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.name == MasterScript.playerName)
-        {
-            //load scene if the scene haven't be solved yet
-            if (!MasterScript.IsSceneComplete(scene))
-            {
-                mainScene.SetActive(false);
-                Application.LoadLevelAdditive(scene);
-            }
-        }
+        if (!PlayerRef.Is(col) || GameProgress.IsComplete(scene)) return;
+
+        if (!SceneFlow.HasHubRoot && mainScene != null) SceneFlow.RegisterHubRoot(mainScene);
+        SceneFlow.EnterTrial(scene);
+    }
+
+    void Refresh()
+    {
+        if (flare != null) flare.brightness = GameProgress.IsComplete(scene) ? SpentBrightness : litBrightness;
     }
 }

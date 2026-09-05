@@ -1,47 +1,77 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using IcyMaze.UI;
+using UnityEngine;
 
-public class PlayerScript : MonoBehaviour {
-	public GameObject fireBall;
-	public GameObject waterGun;
-	public int bulletNo=3; //The maximum number of water gun
-    private Vector3 oriPosition;
-	// Use this for initialization
-	void Start () {
+/// Player rules for the Trial of Embers.
+public class PlayerScript : MonoBehaviour
+{
+    const string FireTag = "fire";
+    const string FinishName = "Finish";
+
+    public GameObject fireBall;
+    public GameObject waterGun;
+    public int bulletNo = 3;
+
+    [SerializeField] Vector3 muzzleOffset = new Vector3(-2f, 0f, 0f);
+    [SerializeField] Vector3 trapSpawn = new Vector3(-33f, -4.2f, -1.2f);
+    [SerializeField] Vector3 trap2Spawn = new Vector3(-33f, -4.2f, -5f);
+
+    Vector3 oriPosition;
+    Rigidbody body;
+    bool finished;
+
+    void Start()
+    {
         oriPosition = transform.localPosition;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		//pressing J key will creates water gun infront of player
-		if (Input.GetKeyUp (KeyCode.J)) {
-			if(bulletNo>0){
-				waterGun = (GameObject)Instantiate (waterGun, new Vector3 (transform.position.x - 2f , transform.position.y, transform.position.z), Quaternion.identity);
-				bulletNo--;
-			}
-		}
-	}
-	//When fire ball or firebox hit player, it will go back to initial position
-	void OnCollisionEnter(Collision other){
-		if (other.collider.tag == "fire") {
-            transform.localPosition = oriPosition;
-		}
-	}
+        body = GetComponent<Rigidbody>();
+        ReportAmmo();
+    }
 
-	void OnTriggerEnter(Collider other){
-		//When player steps on the trap, fire ball will be spawn
-		if (other.name.Equals ("Trap")) {
-			GameObject fireBallSpawn = (GameObject)Instantiate (fireBall, new Vector3 (-33, -4.2f, -1.2f), Quaternion.identity);		
-		}
-		//When player steps on the trap, fire ball will be spawn
-		if (other.name.Equals ("Trap2")) {
-			GameObject fireBallSpawn = (GameObject)Instantiate (fireBall, new Vector3 (-33, -4.2f, -5.0f), Quaternion.identity);			
-		}
-		//When player steps on the finish line, this scene will end
-		if (other.name.Equals ("Finish")) {
-            Destroy(GameObject.Find(MasterScript.thirdScene));
-            MasterScript.isThirdSceneCompleted = true;
-            MasterScript.main.SetActive(true);
-		}
-	}
+    void Update()
+    {
+        if (!GameInput.FirePressed || bulletNo <= 0) return;
+
+        // The original assigned the spawned bolt back over the prefab field, so every shot
+        // after the first was a copy of the previous bolt wherever it happened to be.
+        Spawner.InSceneOf(waterGun, transform.position + muzzleOffset, Quaternion.identity, gameObject);
+        bulletNo--;
+        ReportAmmo();
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (!other.collider.CompareTag(FireTag)) return;
+
+        transform.localPosition = oriPosition;
+        if (body != null)
+        {
+            body.linearVelocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+        }
+        GameProgress.RecordDeath();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Trap")
+        {
+            Spawner.InSceneOf(fireBall, trapSpawn, Quaternion.identity, gameObject);
+        }
+        else if (other.name == "Trap2")
+        {
+            Spawner.InSceneOf(fireBall, trap2Spawn, Quaternion.identity, gameObject);
+        }
+        else if (other.name == FinishName && !finished)
+        {
+            finished = true;
+            SceneFlow.CompleteTrial(GameScenes.FireTrial);
+        }
+    }
+
+    void ReportAmmo()
+    {
+        if (GameHud.Instance == null) return;
+
+        GameHud.Instance.SetHint($"{GameScenes.Objective(GameScenes.FireTrial)}   ({bulletNo} shot{(bulletNo == 1 ? "" : "s")} left)");
+    }
 }

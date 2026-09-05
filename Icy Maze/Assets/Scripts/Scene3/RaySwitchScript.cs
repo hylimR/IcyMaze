@@ -1,19 +1,17 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
-public class RaySwitchScript : MonoBehaviour {
-
+public class RaySwitchScript : MonoBehaviour
+{
     public GameObject rayEmitter;
 
-    //Activate the ray emitter
+    RayEmitterScript emitter;
+    ActionLatch action;
+
+    void Start() => emitter = rayEmitter != null ? rayEmitter.GetComponent<RayEmitterScript>() : null;
+
     void OnTriggerStay(Collider col)
     {
-        if(col.gameObject.name == MasterScript.playerName)
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                rayEmitter.GetComponent<RayEmitterScript>().EmitRay();
-            }
-        }
+        if (emitter != null && PlayerRef.Is(col) && action.Consume()) emitter.EmitRay();
     }
 }

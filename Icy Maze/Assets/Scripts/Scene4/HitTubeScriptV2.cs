@@ -1,94 +1,48 @@
-﻿using UnityEngine;
-using System.Collections;
+using IcyMaze;
+using UnityEngine;
 
+/// Rune block. Every block in the trial answers the same key press; the ones flagged
+/// as reversed travel the opposite way, which is the whole puzzle.
 public class HitTubeScriptV2 : MonoBehaviour
 {
-    public float moveSpeed;
+    public float moveSpeed = 2f;
     public bool isReverse = false;
-    private Vector3 lasPosition, curPosition;
-    private Vector3 destination;
+
+    Vector3 destination;
     Behaviour halo;
 
     void Start()
     {
         destination = transform.localPosition;
-        halo = (Behaviour)GetComponent("Halo");
-        halo.enabled = false;
+        halo = GetComponent("Halo") as Behaviour;
+        if (halo != null) halo.enabled = isReverse;
     }
 
     void Update()
     {
-        //if block is currently moving don't accept input, else move the object by set the destination using Vector3.MoveTowards
-        if (!isMoving())
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                if (!isReverse)
-                    destination = new Vector3(transform.localPosition.x - 1f, transform.localPosition.y, transform.localPosition.z);
-                else
-                    destination = new Vector3(transform.localPosition.x + 1f, transform.localPosition.y, transform.localPosition.z);
-            }
+        if (isMoving()) return;
 
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                if (!isReverse)
-                    destination = new Vector3(transform.localPosition.x + 1f, transform.localPosition.y, transform.localPosition.z);
-                else
-                    destination = new Vector3(transform.localPosition.x - 1f, transform.localPosition.y, transform.localPosition.z);
-            }
+        Vector2 nudge = GameInput.NudgePressed;
+        if (nudge == Vector2.zero) return;
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                if(!isReverse)
-                    destination = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + 1f);
-                else
-                    destination = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 1f);
-            }
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                if(!isReverse)
-                    destination = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 1f);
-                else
-                    destination = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + 1f);
-            }
-        }
+        Vector3 step = new Vector3(nudge.x, 0f, nudge.y);
+        destination = transform.localPosition + (isReverse ? -step : step);
     }
 
     void FixedUpdate()
     {
-        //use fixed update to slowly update object position
-        transform.localPosition = Vector3.MoveTowards(transform.localPosition, destination, moveSpeed * Time.deltaTime);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, destination, moveSpeed * Time.fixedDeltaTime);
     }
 
-    //Toggle box to either move in reverse direction/vice versa
     public void ReverseMovement()
     {
-        if (isReverse)
-        {
-            isReverse = false;
-            halo.enabled = false;
-        }
-        else
-        {
-            isReverse = true;
-            halo.enabled = true;
-        }
+        isReverse = !isReverse;
+        if (halo != null) halo.enabled = isReverse;
     }
-    //Check box is currently moving
-    public bool isMoving()
-    {
-        curPosition = transform.localPosition;
-        if (curPosition == lasPosition)
-        {
-            return false;
-        }
-        lasPosition = curPosition;
-        return true;
-    }
-    //Reverse the direction on mouse click
-    void OnMouseDown()
-    {
-        ReverseMovement();
-    }
+
+    /// Compares against the target tile rather than against last frame's position, which
+    /// reported "stopped" on the first frame of a slide and let a second nudge through.
+    public bool isMoving() => (transform.localPosition - destination).sqrMagnitude > 1e-6f;
+
+    void OnMouseDown() => ReverseMovement();
 }

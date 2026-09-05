@@ -1,40 +1,24 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
-public class AlterableBoxScript : MonoBehaviour {
-
+/// Block that shuttles between its start position and a target.
+public class AlterableBoxScript : MonoBehaviour
+{
     public Vector3 destination;
-    private Vector3 originalPos;
-    private float speed;
-    private bool shouldMove;
 
-    private Vector3 go, back;
+    [SerializeField] float speed = 1.5f;
 
-	void Start () {
-        speed = 1.5f;
-        originalPos = transform.localPosition;  //Store the original location
-        go = originalPos;
-        back = originalPos;
-        shouldMove = true;
-	}
+    Vector3 originalPos;
+    bool atDestination;
 
-	void FixedUpdate () {
-        transform.localPosition = Vector3.MoveTowards(back, go, speed * Time.fixedDeltaTime);
-	}
-    //Move the object to positions using toggled by other game object
-    public void Move()
+    void Start() => originalPos = transform.localPosition;
+
+    void FixedUpdate()
     {
-        if (shouldMove)
-        {
-            go = destination;
-            back = originalPos;
-            shouldMove = false;
-        }
-        else
-        {
-            go = originalPos;
-            back = destination;
-            shouldMove = true;
-        }
+        // The original interpolated from a fixed start vector rather than from where the
+        // block actually was, so it snapped one step off its origin and stayed there.
+        Vector3 target = atDestination ? destination : originalPos;
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, speed * Time.fixedDeltaTime);
     }
+
+    public void Move() => atDestination = !atDestination;
 }

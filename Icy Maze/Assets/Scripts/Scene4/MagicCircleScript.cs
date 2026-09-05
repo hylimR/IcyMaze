@@ -1,24 +1,23 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
-public class MagicCircleScript : MonoBehaviour {
+/// Lights up while at least one rune block is standing on it.
+public class MagicCircleScript : MonoBehaviour
+{
+    const string BlockTag = "HitTube";
 
-    //Check whether this particular magic circle is stepped on by box
-    public bool isSteppedOn = false;
+    int occupants;
 
-    void OnTriggerEnter(Collider collider)
+    public bool isSteppedOn => occupants > 0;
+
+    void OnTriggerEnter(Collider col)
     {
-        if(collider.tag == "HitTube")
-        {
-            isSteppedOn = true;
-        }
+        if (col.CompareTag(BlockTag)) occupants++;
     }
 
-    void OnTriggerExit(Collider collider)
+    // Counted rather than a plain bool: two blocks overlapping one circle used to clear
+    // the flag as soon as either of them stepped off.
+    void OnTriggerExit(Collider col)
     {
-        if(collider.tag == "HitTube")
-        {
-            isSteppedOn = false;
-        }
+        if (col.CompareTag(BlockTag)) occupants = Mathf.Max(0, occupants - 1);
     }
 }

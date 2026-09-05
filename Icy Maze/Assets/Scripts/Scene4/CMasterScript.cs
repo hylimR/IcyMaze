@@ -1,74 +1,70 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+using IcyMaze;
+using IcyMaze.UI;
+using UnityEngine;
 using UnityEngine.UI;
 
-//Master script to control current scene
-public class CMasterScript : MonoBehaviour {
-
+/// Runs the Trial of Sigils: a briefing screen, then four rune blocks to park on four
+/// magic circles.
+public class CMasterScript : MonoBehaviour
+{
     public GameObject instruction;
     public GameObject startButton, showInstructButton;
     public GameObject mCircle1, mCircle2, mCircle3, mCircle4;
-    MagicCircleScript s1, s2, s3, s4;
 
-	void Start () {
-        //Pause the game at start screen
-        Time.timeScale = 0;
-        s1 = mCircle1.GetComponent<MagicCircleScript>();
-        s2 = mCircle2.GetComponent<MagicCircleScript>();
-        s3 = mCircle4.GetComponent<MagicCircleScript>();
-        s4 = mCircle4.GetComponent<MagicCircleScript>();
-        //hide win screen
-        UnityEngine.Events.UnityAction action = () => { ShowInstruction(); };
-        startButton.GetComponent<Button>().onClick.AddListener(action);
+    MagicCircleScript[] circles;
+    bool finishing;
 
-        //Hide this button by default
-        showInstructButton.SetActive(false);
-        showInstructButton.GetComponent<Button>().onClick.AddListener(action);
-    }
-	
-	void Update () {
-        if (IsPuzzleComplete())
-        {
-            //Allow the block to properly stand on top the circle before ending the game
-            Invoke("FinishGame", 0.5f);
-        }
-    }
-
-    private bool IsPuzzleComplete()
+    void Start()
     {
-        //If all the four circle is stepped on , end the game
-        if (s1.isSteppedOn && s2.isSteppedOn && s3.isSteppedOn && s4.isSteppedOn)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        // mCircle3 was read from mCircle4, so the third circle never had to be covered
+        // and the puzzle could be finished with one block left over.
+        circles = new[] { Circle(mCircle1), Circle(mCircle2), Circle(mCircle3), Circle(mCircle4) };
+
+        Bind(startButton);
+        Bind(showInstructButton);
+        if (showInstructButton != null) showInstructButton.SetActive(false);
+
+        if (instruction != null) instruction.SetActive(true);
+        Time.timeScale = 0f;
+        GameInput.GameplayEnabled = false;
+
+        if (GameHud.Instance != null) GameHud.Instance.SetHint(GameScenes.Objective(GameScenes.IceTrial));
     }
 
-    //Toggle instruction
-    private void ShowInstruction()
+    void Update()
     {
-        if (instruction.activeSelf)
-        {
-            instruction.SetActive(false);
-            showInstructButton.SetActive(true);
-            Time.timeScale = 1;
-        }
-        else
-        {
-            instruction.SetActive(true);
-            showInstructButton.SetActive(false);
-            Time.timeScale = 0;
-        }
+        // The original queued a fresh Invoke every frame once the puzzle was solved.
+        if (finishing || !IsPuzzleComplete()) return;
+
+        finishing = true;
+        Invoke(nameof(FinishGame), 0.5f);
     }
 
-    //End the game
-    private void FinishGame()
+    bool IsPuzzleComplete()
     {
-        Destroy(GameObject.Find(MasterScript.firstScene));
-        MasterScript.isFirstSceneCompleted = true;
-        MasterScript.main.SetActive(true);
+        foreach (MagicCircleScript circle in circles)
+        {
+            if (circle == null || !circle.isSteppedOn) return false;
+        }
+        return true;
     }
+
+    void ToggleInstruction()
+    {
+        bool showing = instruction != null && instruction.activeSelf;
+        if (instruction != null) instruction.SetActive(!showing);
+        if (showInstructButton != null) showInstructButton.SetActive(showing);
+        Time.timeScale = showing ? 1f : 0f;
+        GameInput.GameplayEnabled = showing;
+    }
+
+    void FinishGame() => SceneFlow.CompleteTrial(GameScenes.IceTrial);
+
+    void Bind(GameObject host)
+    {
+        Button button = host != null ? host.GetComponent<Button>() : null;
+        if (button != null) button.onClick.AddListener(ToggleInstruction);
+    }
+
+    static MagicCircleScript Circle(GameObject go) => go != null ? go.GetComponent<MagicCircleScript>() : null;
 }
